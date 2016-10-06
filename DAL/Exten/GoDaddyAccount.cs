@@ -11,7 +11,8 @@
                 Password = GoDaddyPassword,
                 Verified = Verified,
                 AccountUsername = Users.Username,
-                ReceiveEmail = Users.ReceiveEmails
+                ReceiveEmail = Users.ReceiveEmails,
+                UserID = UserID
             };
         }
     }

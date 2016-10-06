@@ -107,9 +107,9 @@ namespace DASService
                 var message = ex.Message + Environment.NewLine +
                           ex.StackTrace + Environment.NewLine;
                 message += ex.InnerException.Message;
-                Email.SendEmail(SystemRepository.AlertEmail, "XGP Service Error - Alerts",
-                        ex.Message + Environment.NewLine +
-                        ex.StackTrace + Environment.NewLine, Global.GetPacificTime);
+                //Email.SendEmail(SystemRepository.AlertEmail, "XGP Service Error - Alerts",
+                //        ex.Message + Environment.NewLine +
+                //        ex.StackTrace + Environment.NewLine, Global.GetPacificTime);
             }
             catch (Exception)
             {
@@ -157,17 +157,15 @@ namespace DASService
                             SystemRepository.MarkAuctionAsProcess(auction.AuctionId);
                             UserRepository.AddHistoryRecord("Bid Process Started", auction.AuctionId);
 
-                            var account = auction.GoDaddyAccount;
-                            var auction1 = auction;
                             var th = new Thread(() =>
                             {
                                 try
                                 {
-                                    var gd = new GoDaddyAuctionSniper(account.AccountUsername, UserRepository);
-                                    gd.PlaceBid(auction1);
+                                    var gd = new GoDaddyAuctionSniper(auction.GoDaddyAccount.AccountUsername, UserRepository);
+                                    gd.PlaceBid(auction);
                                     Email.SendEmail(SystemRepository.AlertEmail, "XGP: Placing a bid",
-                                        "Account: " + account.Username + Environment.NewLine +
-                                        "Site: " + auction1.DomainName, Global.GetPacificTime);
+                                        "Account: " + auction.GoDaddyAccount.Username + Environment.NewLine +
+                                        "Site: " + auction.DomainName, Global.GetPacificTime);
                                 }
                                 catch (Exception e)
                                 {

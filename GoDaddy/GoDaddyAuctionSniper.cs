@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using DAL;
 using DAS.Domain;
@@ -34,28 +36,28 @@ namespace GoDaddy
 
         public bool CaptchaOverload { get; set; }
 
-        /// <summary>
-        /// Checks to see if you are still logged in
-        /// </summary>
-        /// <returns></returns>
-        public bool LoggedIn(string html)
-        {
-            var hdoc = HtmlDocument(html);
-            if (QuerySelector(hdoc.DocumentNode, "input[id='hidShopperId']") != null)
-            {
-                if (QuerySelector(hdoc.DocumentNode, "input[id='hidShopperId']").Attributes["value"].Value != "")
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         public bool LoggedIn()
         {
-            const string url = "https://auctions.godaddy.com/";
-            var responseData = Get(url);
-            return LoggedIn(responseData);
+            Hashtable k = (Hashtable)CookieContainer.GetType().GetField("m_domainTable", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(CookieContainer);
+            foreach (DictionaryEntry element in k)
+            {
+                SortedList l = (SortedList)element.Value.GetType().GetField("m_list", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(element.Value);
+                foreach (var e in l)
+                {
+                    var cl = (CookieCollection)((DictionaryEntry)e).Value;
+                    foreach (Cookie fc in cl)
+                    {
+                        if (fc.Secure == true && fc.Domain == "godaddy.com" && fc.Name == "auth_idp")
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+            //var resp = Post("https://auctions.godaddy.com/trpMessageHandler.aspx", string.Format("sec=Wa&sort=&dir=&page=1&rpp=50&at=0&rnd={0}", RandomDouble().ToString("0.00000000000000000")));
+            //return !resp.Contains("Your login session has expired");
         }
 
         /// <summary>
@@ -67,13 +69,13 @@ namespace GoDaddy
             const string url = "https://auctions.godaddy.com/";
             var responseData = Get(url);
             //Skip if we are logged in
-            if (LoggedIn(responseData))
+            if (LoggedIn())
             {
                 return true;
             }
-            var key = GetSubString(responseData, "SPKey=", "\"");
-            var loginurl = string.Format("https://idp.godaddy.com/login.aspx?SPKey={0}", key);
-            var hdoc = HtmlDocument(Get(loginurl));
+            var loginurl = "https://sso.godaddy.com/?realm=idp&app=auctions&path=/";
+            var hdoc = HtmlDocument(Post(loginurl, string.Format("name={0}&password={1}", username ?? _sessionDetails.GoDaddyAccount.Username, password ?? _sessionDetails.GoDaddyAccount.Password)));
+
             if (QuerySelector(hdoc.DocumentNode, "img[class='LBD_CaptchaImage']") != null)
             {
                 //Solve Captcha
@@ -111,12 +113,12 @@ namespace GoDaddy
 
                         responseData = Post(loginurl, postData);
 
-                        if (!LoggedIn(responseData))
+                        if (!LoggedIn())
                         {
                             client.Report(captcha);
                         }
 
-                        return LoggedIn(responseData);
+                        return LoggedIn();
                     }
                 }
                 catch (Exception e)
@@ -127,13 +129,8 @@ namespace GoDaddy
             }
             else
             {
-                var login = "https://sso.godaddy.com/?app=auctions";
-                var loginData = string.Format("name={0}&password={1}",
-                    Uri.EscapeDataString(username ?? _sessionDetails.GoDaddyAccount.Username),
-                    Uri.EscapeDataString(password ?? _sessionDetails.GoDaddyAccount.Password));
-                var firstLoginResponse = Post(login, loginData);
-
-                return LoggedIn(firstLoginResponse);
+                
+                return LoggedIn();
             }
 
             if (attempNo < 3)
@@ -157,7 +154,7 @@ namespace GoDaddy
         /// <returns></returns>
         public bool WinCheck(string domainName)
         {
-            if (!LoggedIn(Get("https://auctions.godaddy.com")))
+            if (!LoggedIn())
             {
                 Login();
             }
@@ -167,6 +164,12 @@ namespace GoDaddy
             var data = Post(url, postData);
 
             return data.Contains(domainName);
+        }
+
+        public bool WatchList()
+        {
+            var resp = HtmlDocument(Post("https://auctions.godaddy.com/trpMessageHandler.aspx", string.Format("sec=Wa&sort=&dir=&page=1&rpp=50&at=0&rnd={0}", RandomDouble().ToString("0.00000000000000000"))));
+            return true;
         }
 
         public void GetWatchList()

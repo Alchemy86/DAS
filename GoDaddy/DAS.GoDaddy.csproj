@@ -52,11 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAS.DAL.csproj">
-      <Project>{3b99167c-9d35-417f-bbee-99bac61a1dec}</Project>
+      <Project>{3B99167C-9D35-417F-BBEE-99BAC61A1DEC}</Project>
       <Name>DAS.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAS.Domain\DAS.Domain.csproj">
-      <Project>{e21f7956-c2bd-43ca-815e-e4967f840d69}</Project>
+      <Project>{E21F7956-C2BD-43CA-815E-E4967F840D69}</Project>
       <Name>DAS.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lunchboxweb\Lunchboxweb.csproj">
