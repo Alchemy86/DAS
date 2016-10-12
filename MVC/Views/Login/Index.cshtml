@@ -1,0 +1,49 @@
+﻿@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container">
+    <div class="vertical-center">
+
+        <div class="container text-center">
+            <br />
+            <div>
+                <small class="text-warning">@ViewBag.Warning</small>
+            </div>
+            
+            <small class="text-muted">@ViewBag.Message</small>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+
+                <div class="col-md-4 well" style="padding-left: 60px; padding-right: 60px">
+                    <h3>DAS Members</h3>
+                    <br />
+                    <!-- <div asp-validation-summary="All" class="text-danger"></div> -->
+                    <form asp-controller="Login" asp-action="Login" method="post" class="form-horizontal" role="form">
+                        <fieldset class="form-group">
+                            <label asp-for="UserName" class="label label-success pull-left"></label>
+                            <input asp-for="UserName" class="form-control" placeholder="Enter Username (Email)">
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </fieldset>
+                        <br />
+                        <fieldset class="form-group">
+                            <label asp-for="Password" class="label label-success pull-left"></label><br/>
+                            <input asp-for="Password" class="form-control" placeholder="Password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </fieldset>
+                        <fieldset class="form-group pull-right">
+                            <input type="submit" class="btn btn-primary" value="Log in" />
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div class="col-md-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

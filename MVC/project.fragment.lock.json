@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "exports": {
+    "DAS.ServiceCall/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/DAS.ServiceCall.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/DAS.ServiceCall.dll": {}
+      }
+    },
+    "Lunchboxweb/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/Lunchboxweb.dll": {}
+      },
+      "runtime": {
+        "../3rdParty/Fizzler.Systems.HtmlAgilityPack.dll": {},
+        "../packages/HtmlAgilityPack.1.4.9.5/lib/Net45/HtmlAgilityPack.dll": {},
+        "bin/Debug/Lunchboxweb.dll": {}
+      }
+    },
+    "DAS.Domain/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/DAS.Domain.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/DAS.Domain.dll": {}
+      }
+    }
+  }
+}

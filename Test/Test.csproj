@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\DAS\packages\Castle.Core.4.0.0-beta001\lib\net45\Castle.Core.dll</HintPath>
+      <HintPath>..\packages\Castle.Core.4.0.0-beta001\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -46,11 +46,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Moq, Version=4.6.38.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\DAS\packages\Moq.4.6.38-alpha\lib\net45\Moq.dll</HintPath>
+      <HintPath>..\packages\Moq.4.6.38-alpha\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\DAS\packages\Ninject.4.0.0-beta-0134\lib\net45\Ninject.dll</HintPath>
+      <HintPath>..\packages\Ninject.4.0.0-beta-0134\lib\net45\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -111,9 +111,9 @@
       <Project>{e21f7956-c2bd-43ca-815e-e4967f840d69}</Project>
       <Name>DAS.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DAS.GoDaddy\DAS.GoDaddy.csproj">
-      <Project>{7fdd8669-9620-4c5a-8db1-992738be0d95}</Project>
-      <Name>DAS.GoDaddy</Name>
+    <ProjectReference Include="..\DAS.GoDaddyv2\DAS.GoDaddyv2.csproj">
+      <Project>{8A951D85-A016-4DFE-BFF5-A1B1C453B81F}</Project>
+      <Name>DAS.GoDaddyv2</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lunchboxweb\Lunchboxweb.csproj">
       <Project>{FCB65216-825D-4C9B-8308-AE36DEBFDC38}</Project>

@@ -19,11 +19,7 @@ namespace DAS_MVC
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            if (env.IsDevelopment())
-            {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
-            }
+
             DasApi = new DasService();
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -34,7 +30,7 @@ namespace DAS_MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession();
+            //services.AddSession();
             services.AddMvc();
 
             services.AddSingleton(DasApi);
@@ -60,7 +56,7 @@ namespace DAS_MVC
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseSession();
+            //app.UseSession();
             app.UseStaticFiles();
 
             try

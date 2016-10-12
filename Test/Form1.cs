@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using DAS.Domain.GoDaddy.Users;
 using DAS.Domain.Users;
-using GoDaddy;
+using DAS.GoDaddyv2;
 using Ninject;
 
 namespace Test
