@@ -7008,6 +7008,7 @@
       "Newtonsoft.Json >= 9.0.1"
     ],
     ".NETFramework,Version=v4.6.1": [
+      "DAS.Domain",
       "DAS.ServiceCall",
       "Lunchboxweb"
     ]

@@ -22,6 +22,7 @@
     <DnxInvisibleContent Include=".npmrc" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DAS.Domain\DAS.Domain.csproj" />
     <ProjectReference Include="..\DAS.ServiceCall\DAS.ServiceCall.csproj" />
     <ProjectReference Include="..\Lunchboxweb\Lunchboxweb.csproj" />
   </ItemGroup>

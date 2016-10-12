@@ -74,6 +74,9 @@
   "frameworks": {
     "net461": {
       "dependencies": {
+        "DAS.Domain": {
+          "target": "project"
+        },
         "DAS.ServiceCall": {
           "target": "project"
         },

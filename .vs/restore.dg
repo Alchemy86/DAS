@@ -1,5 +1,5 @@
-#:C:\Git\DAS\DAS_MVC\DAS_MVC.xproj
-C:\Git\DAS\DAS_MVC\DAS_MVC.xproj|C:\Git\DAS\DAS.Domain\DAS.Domain.csproj
-C:\Git\DAS\DAS_MVC\DAS_MVC.xproj|C:\Git\DAS\DAS.ServiceCall\DAS.ServiceCall.csproj
-C:\Git\DAS\DAS_MVC\DAS_MVC.xproj|C:\Git\DAS\Lunchboxweb\Lunchboxweb.csproj
+#:C:\Git\DAS\MVC\MVC.xproj
+C:\Git\DAS\MVC\MVC.xproj|C:\Git\DAS\DAS.Domain\DAS.Domain.csproj
+C:\Git\DAS\MVC\MVC.xproj|C:\Git\DAS\DAS.ServiceCall\DAS.ServiceCall.csproj
+C:\Git\DAS\MVC\MVC.xproj|C:\Git\DAS\Lunchboxweb\Lunchboxweb.csproj
 C:\Git\DAS\Lunchboxweb\Lunchboxweb.csproj|C:\Git\DAS\DAS.Domain\DAS.Domain.csproj
