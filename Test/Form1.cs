@@ -21,9 +21,11 @@ namespace Test
         {
             var repo = _kernal.Get<IGoDaddySession>();
             GoDaddyAuctionSniper gd = new GoDaddyAuctionSniper("michaelgipmedia", _kernal.Get<IUserRepository>());
-            var loggedin = gd.Login(0, repo.Username, repo.Password);
-            var mo = gd.WatchList();
+            //var loggedin = gd.Login(0, repo.Username, repo.Password);
+            //var mo = gd.WatchList();
             //var repo = _kernal.Get<ISystemRepository>();
+            var blah = gd.Search("cat");
+            var moo = "";
             
             //gd.WinCheck("yolo.com");
         }

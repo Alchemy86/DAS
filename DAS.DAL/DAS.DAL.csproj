@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3B99167C-9D35-417F-BBEE-99BAC61A1DEC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DAL</RootNamespace>
+    <AssemblyName>DAS.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DAS.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DAS.Domain\bin\Debug\DAS.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\DAS\packages\EntityFramework.6.1.3-beta1\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\DAS\packages\EntityFramework.6.1.3-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvSearch.cs" />
+    <Compile Include="Alerts.cs" />
+    <Compile Include="AuctionHistory.cs" />
+    <Compile Include="AuctionHistoryView.cs" />
+    <Compile Include="Auctions.cs" />
+    <Compile Include="AuctionSearch.cs" />
+    <Compile Include="BackOrders.cs" />
+    <Compile Include="Chart_AuctionHistory.cs" />
+    <Compile Include="Chart_AuctionsEnding.cs" />
+    <Compile Include="Chart_PopularDomainsThisMonth.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="EventLog.cs" />
+    <Compile Include="Exten\Alerts.cs" />
+    <Compile Include="Exten\ASEntities.cs" />
+    <Compile Include="Exten\Auctions.cs" />
+    <Compile Include="Exten\GoDaddyAccount.cs" />
+    <Compile Include="GoDaddyAccount.cs" />
+    <Compile Include="Migrations\201601082324074_InitialCreate.cs" />
+    <Compile Include="Migrations\201601082324074_InitialCreate.Designer.cs">
+      <DependentUpon>201601082324074_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601091102451_AlertTypes.cs" />
+    <Compile Include="Migrations\201601091102451_AlertTypes.Designer.cs">
+      <DependentUpon>201601091102451_AlertTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601100101208_Alerts.cs" />
+    <Compile Include="Migrations\201601100101208_Alerts.Designer.cs">
+      <DependentUpon>201601100101208_Alerts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604201736415_default.cs" />
+    <Compile Include="Migrations\201604201736415_default.Designer.cs">
+      <DependentUpon>201604201736415_default.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604201742435_datadefaults.cs" />
+    <Compile Include="Migrations\201604201742435_datadefaults.Designer.cs">
+      <DependentUpon>201604201742435_datadefaults.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604201753489_datadefaults2.cs" />
+    <Compile Include="Migrations\201604201753489_datadefaults2.Designer.cs">
+      <DependentUpon>201604201753489_datadefaults2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604201807235_datadefaultsCorrection.cs" />
+    <Compile Include="Migrations\201604201807235_datadefaultsCorrection.Designer.cs">
+      <DependentUpon>201604201807235_datadefaultsCorrection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604201809246_datadefaultsCorrection2.cs" />
+    <Compile Include="Migrations\201604201809246_datadefaultsCorrection2.Designer.cs">
+      <DependentUpon>201604201809246_datadefaultsCorrection2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605182140559_DefaultsFix.cs" />
+    <Compile Include="Migrations\201605182140559_DefaultsFix.Designer.cs">
+      <DependentUpon>201605182140559_DefaultsFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605182145547_DefaultsFix2.cs" />
+    <Compile Include="Migrations\201605182145547_DefaultsFix2.Designer.cs">
+      <DependentUpon>201605182145547_DefaultsFix2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605182156026_Testag.cs" />
+    <Compile Include="Migrations\201605182156026_Testag.Designer.cs">
+      <DependentUpon>201605182156026_Testag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ASEntities.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\SystemRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="SearchConfig.cs" />
+    <Compile Include="SearchLayout.cs" />
+    <Compile Include="SearchTable.cs" />
+    <Compile Include="SystemConfig.cs" />
+    <Compile Include="Users.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201601082324074_InitialCreate.resx">
+      <DependentUpon>201601082324074_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601091102451_AlertTypes.resx">
+      <DependentUpon>201601091102451_AlertTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601100101208_Alerts.resx">
+      <DependentUpon>201601100101208_Alerts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604201736415_default.resx">
+      <DependentUpon>201604201736415_default.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604201742435_datadefaults.resx">
+      <DependentUpon>201604201742435_datadefaults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604201753489_datadefaults2.resx">
+      <DependentUpon>201604201753489_datadefaults2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604201807235_datadefaultsCorrection.resx">
+      <DependentUpon>201604201807235_datadefaultsCorrection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604201809246_datadefaultsCorrection2.resx">
+      <DependentUpon>201604201809246_datadefaultsCorrection2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605182140559_DefaultsFix.resx">
+      <DependentUpon>201605182140559_DefaultsFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605182145547_DefaultsFix2.resx">
+      <DependentUpon>201605182145547_DefaultsFix2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605182156026_Testag.resx">
+      <DependentUpon>201605182156026_Testag.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
