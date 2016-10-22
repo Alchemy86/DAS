@@ -104,12 +104,10 @@
                             <textarea asp-for="Message" class="form-control" rows="10" Columns="120" placeholder="Report your issue" maxlength="500" required autofocus id="bugtxtv"></textarea>
                         </div>
 
-                        <fieldset class="form-group pull-right">
-                            <div class="btn btn-primary" onclick="Submit($('#bugtxtv').val())">Submit</div>
-                        </fieldset>
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-default" id="closebug" data-dismiss="modal">Close</a>
+                        <div class="btn btn-primary" onclick="Submit($('#bugtxtv').val())">Submit</div>
                     </div>
                 </div>
             </div>
