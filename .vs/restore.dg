@@ -1,5 +1,10 @@
 #:C:\Git\DAS\MVC\MVC.xproj
+C:\Git\DAS\MVC\MVC.xproj|C:\Git\DAS\DAS.DAL2\DAS.DAL2.csproj
 C:\Git\DAS\MVC\MVC.xproj|C:\Git\DAS\DAS.Domain\DAS.Domain.csproj
+C:\Git\DAS\MVC\MVC.xproj|C:\Git\DAS\DAS.GoDaddyv2\DAS.GoDaddyv2.csproj
 C:\Git\DAS\MVC\MVC.xproj|C:\Git\DAS\DAS.ServiceCall\DAS.ServiceCall.csproj
 C:\Git\DAS\MVC\MVC.xproj|C:\Git\DAS\Lunchboxweb\Lunchboxweb.csproj
+C:\Git\DAS\DAS.DAL2\DAS.DAL2.csproj|C:\Git\DAS\DAS.Domain\DAS.Domain.csproj
+C:\Git\DAS\DAS.GoDaddyv2\DAS.GoDaddyv2.csproj|C:\Git\DAS\DAS.DAL2\DAS.DAL2.csproj
+C:\Git\DAS\DAS.GoDaddyv2\DAS.GoDaddyv2.csproj|C:\Git\DAS\DAS.Domain\DAS.Domain.csproj
 C:\Git\DAS\Lunchboxweb\Lunchboxweb.csproj|C:\Git\DAS\DAS.Domain\DAS.Domain.csproj

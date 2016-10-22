@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model ErrorReport
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -44,6 +46,7 @@
         </div>
     </div>
     <div class="container body-content">
+        <div style="display:none" id="feedbackmessage" Class="alert alert-success pull-right"></div>
         <div>
             <h3>@ViewData["Title"]</h3>
         </div>
@@ -54,7 +57,7 @@
         <nav class="navbar navbar-fixed-bottom">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Report a Bug</a>
+                    <a data-toggle="modal" data-id="moo" href="#bugreport" class="navbar-brand">Report a Bug</a>
                 </div>
                 <div class="navbar-collapse">
                     <ul class="nav navbar-brand pull-right">
@@ -69,6 +72,9 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery.unobtrusive-ajax/jquery.unobtrusive-ajax.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -80,8 +86,54 @@
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery.unobtrusive-ajax/jquery.unobtrusive-ajax.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     </environment>
+    @*Bug report model*@
+    <form asp-controller="BugReport" asp-action="SubmitBug" method="post" class="form-horizontal" role="form" id="bugform">
+        <div class="modal fade" id="bugreport" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Report a bug <span class="glyphicon glyphicon-send pull-right"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="sr-only">Description</label>
+                            <textarea asp-for="Message" class="form-control" rows="10" Columns="120" placeholder="Report your issue" maxlength="500" required autofocus id="bugtxtv"></textarea>
+                        </div>
 
+                        <fieldset class="form-group pull-right">
+                            <div class="btn btn-primary" onclick="Submit($('#bugtxtv').val())">Submit</div>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-default" id="closebug" data-dismiss="modal">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        $('#bugform').valid();
+        function Submit(message) {
+            if ($('#bugform').valid()) {
+                $.ajax({
+                    dataType: "html",
+                    type: "POST",
+                    url: '@Url.Action("SubmitBug", "BugReport")',
+                    data: { message: message },
+                    success: function (a) {
+                        // close the modal and submit the but report
+                        $('#bugreport').modal('toggle');
+                        $('#feedbackmessage').text(a);
+                        $('#feedbackmessage').fadeIn(300).delay(1000).fadeOut('slow');
+                    }
+                });
+            }
+        }
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

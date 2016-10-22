@@ -103,9 +103,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAS.DAL\DAS.DAL.csproj">
-      <Project>{3b99167c-9d35-417f-bbee-99bac61a1dec}</Project>
-      <Name>DAS.DAL</Name>
+    <ProjectReference Include="..\DAS.DAL2\DAS.DAL2.csproj">
+      <Project>{E20C8393-00A4-4B8F-A34E-8B55853D097D}</Project>
+      <Name>DAS.DAL2</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAS.Domain\DAS.Domain.csproj">
       <Project>{e21f7956-c2bd-43ca-815e-e4967f840d69}</Project>

@@ -24,21 +24,31 @@ namespace MVC.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Login to the site
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public IActionResult Login(LoginModel model)
         {
             if(!ModelState.IsValid)
             {
                 return View("~/Views/Login/Index.cshtml");
             }
-            ViewBag.Message = "Failure";
+            ViewBag.Message = "Login Failed. Please check your details";
             if (ServiceLogin(model))
             {
                 HttpContext.Session.SetString("SessionToken", Guid.NewGuid().ToString());
-                ViewBag.Message = "Success";
+                return View("~/Views/Bids/Index.cshtml");
             }
             return View("~/Views/Login/Index.cshtml");
         }
 
+        /// <summary>
+        /// Attempt the service login
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         private bool ServiceLogin(LoginModel model)
         {
             if (Service.LoginWP(model.UserName, model.Password))

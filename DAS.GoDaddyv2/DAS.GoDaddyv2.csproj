@@ -57,9 +57,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAS.DAL\DAS.DAL.csproj">
-      <Project>{3B99167C-9D35-417F-BBEE-99BAC61A1DEC}</Project>
-      <Name>DAS.DAL</Name>
+    <ProjectReference Include="..\DAS.DAL2\DAS.DAL2.csproj">
+      <Project>{e20c8393-00a4-4b8f-a34e-8b55853d097d}</Project>
+      <Name>DAS.DAL2</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAS.Domain\DAS.Domain.csproj">
       <Project>{E21F7956-C2BD-43CA-815E-E4967F840D69}</Project>
