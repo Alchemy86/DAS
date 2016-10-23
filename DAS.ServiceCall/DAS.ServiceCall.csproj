@@ -116,6 +116,12 @@
       <CachedSettingsPropName>DAS_ServiceCall_LunchboxcodeAPI_Domain_Auction_Sniper_API</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAS.Domain\DAS.Domain.csproj">
+      <Project>{E21F7956-C2BD-43CA-815E-E4967F840D69}</Project>
+      <Name>DAS.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

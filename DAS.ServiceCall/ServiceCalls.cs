@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DAS.Domain.Users;
 
 namespace DAS.ServiceCall
 {
     public interface IServiceCalls
     {
         bool LoginWP(string username, string password);
+
+        void SendEmail(string username, string message);
     }
 }

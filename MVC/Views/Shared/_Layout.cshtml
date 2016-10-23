@@ -117,6 +117,7 @@
         $('#bugform').valid();
         function Submit(message) {
             if ($('#bugform').valid()) {
+                $('#bugreport').modal('toggle');
                 $.ajax({
                     dataType: "html",
                     type: "POST",
@@ -124,7 +125,6 @@
                     data: { message: message },
                     success: function (a) {
                         // close the modal and submit the but report
-                        $('#bugreport').modal('toggle');
                         $('#feedbackmessage').text(a);
                         $('#feedbackmessage').fadeIn(300).delay(1000).fadeOut('slow');
                     }

@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MVC.Models.Pages;
-using Microsoft.AspNetCore.Mvc;
-using DAS.ServiceCall.LunchboxcodeAPI;
 using DAS.ServiceCall;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using MVC.Models.Pages;
 
 namespace MVC.Controllers
 {
@@ -38,7 +34,6 @@ namespace MVC.Controllers
             ViewBag.Message = "Login Failed. Please check your details";
             if (ServiceLogin(model))
             {
-                HttpContext.Session.SetString("SessionToken", Guid.NewGuid().ToString());
                 return View("~/Views/Bids/Index.cshtml");
             }
             return View("~/Views/Login/Index.cshtml");
@@ -53,6 +48,8 @@ namespace MVC.Controllers
         {
             if (Service.LoginWP(model.UserName, model.Password))
             {
+                HttpContext.Session.SetString("SessionToken", Guid.NewGuid().ToString());
+                HttpContext.Session.SetString("DASUserName", model.UserName);
                 return true;
             }
             return false;

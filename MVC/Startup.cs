@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DAS.DAL2;
+using DAS.DAL2.Repositories;
+using DAS.Domain;
+using DAS.Domain.Users;
 using DAS.ServiceCall;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +14,9 @@ namespace MVC
     public class Startup
     {
         private IServiceCalls DasApi;
+        private IUserRepository UserRepository;
+        private IUnitOfWork UnitOfWork;
+        private ISystemRepository SystemRepository;
 
         public Startup(IHostingEnvironment env)
         {
@@ -23,7 +26,10 @@ namespace MVC
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            DasApi = new DasService();
+            UnitOfWork = new Model1();
+            SystemRepository = new SystemRepository(UnitOfWork);
+            DasApi = new DasService(SystemRepository);
+            UserRepository = new UserRepository(UnitOfWork);
             Configuration = builder.Build();
         }
 
@@ -35,6 +41,9 @@ namespace MVC
             // Add framework services.
             services.AddSession();
             services.AddMvc();
+            services.AddSingleton(UnitOfWork);
+            services.AddSingleton(SystemRepository);
+            services.AddSingleton(UserRepository);
             services.AddSingleton(DasApi);
 
         }
