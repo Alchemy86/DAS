@@ -19,11 +19,7 @@ namespace DAS.DAL2.Repositories
             var username = Context.SystemConfig.First(x => x.PropertyID == "DBCUser").Value;
             var password = Context.SystemConfig.First(x => x.PropertyID == "DBCPass").Value;
 
-            return new DeathByCaptureDetails
-            {
-                Password = password,
-                Username = username
-            };
+            return new DeathByCaptureDetails(username, password);
         }
 
         public GoDaddySessionModel GetSessionDetails(string username)

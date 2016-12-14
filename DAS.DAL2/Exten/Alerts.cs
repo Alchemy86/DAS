@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using DAS.Domain.Enum;
 using DAS.Domain.GoDaddy.Alerts;
 
@@ -9,27 +8,16 @@ namespace DAS.DAL2
     {
         public Alert ToDomainObject()
         {
-            return new Alert()
-            {
-                AlertId = AlertID,
-                Custom = Custom,
-                Processed = Processed,
-                TriggerTime = TriggerTime,
-                Type = (AlertType)Enum.Parse(typeof(AlertType), AlertType),
-                AuctionId = AuctionID,
-                Auction = Auctions.ToDomainObject()
-            };
+            return new Alert(AlertID, (AlertType) Enum.Parse(typeof(AlertType), AlertType), Auctions.ToDomainObject(), TriggerTime, Processed);
         }
 
         public void FromDomainObject(Alert alert)
         {
             AlertID = alert.AlertId;
-            Custom = alert.Custom;
             Processed = alert.Processed;
             TriggerTime = alert.TriggerTime;
             AlertType = alert.Type.ToName();
             Description = alert.Description;
-            AuctionID = alert.AuctionId;
         }
     }
 }

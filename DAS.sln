@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAS.DAL2", "DAS.DAL2\DAS.DA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunchboxCode", "LunchboxCode\LunchboxCode.csproj", "{ABB4EC07-60C0-4C7F-A40D-9A876C1AFE26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAS.Presentation", "DAS.Presentation\DAS.Presentation.csproj", "{50A59BA6-A993-4609-903D-BA70D9057F7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{ABB4EC07-60C0-4C7F-A40D-9A876C1AFE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABB4EC07-60C0-4C7F-A40D-9A876C1AFE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABB4EC07-60C0-4C7F-A40D-9A876C1AFE26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50A59BA6-A993-4609-903D-BA70D9057F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50A59BA6-A993-4609-903D-BA70D9057F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50A59BA6-A993-4609-903D-BA70D9057F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50A59BA6-A993-4609-903D-BA70D9057F7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

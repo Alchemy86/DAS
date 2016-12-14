@@ -1,15 +1,23 @@
 ﻿using System;
+
 namespace DAS.Domain.GoDaddy.Users
 {
     public class GoDaddyAccount
     {
-        public Guid AccountId { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public bool Verified { get; set; }
-        public Guid UserID { get; set; }
+        public Guid AccountId { get; private set; }
 
-        public string AccountUsername { get; set; }
-        public bool ReceiveEmail { get; set; }
+        public string Username { get; private set; }
+
+        public string Password { get; private set; }
+
+        public bool Verified { get; private set; }
+
+        public GoDaddyAccount(Guid accountId, string userName, string password, bool verified)
+        {
+            AccountId = accountId;
+            Username = userName;
+            Password = password;
+            Verified = verified;
+        }
     }
 }

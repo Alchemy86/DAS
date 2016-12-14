@@ -18,13 +18,7 @@ namespace Test
             mockObject.Setup(x => x.Username).Returns("michaelgipmedia");
             mockObject.Setup(x => x.Password).Returns("test");
             mockObject.Setup(x => x.GoDaddyAccount).Returns(
-                new DAS.Domain.GoDaddy.Users.GoDaddyAccount
-                {
-                    AccountId = Guid.NewGuid(),
-                    Username = "michaelgipmedia",
-                    Password = "test",
-                    Verified = false
-                });
+                new DAS.Domain.GoDaddy.Users.GoDaddyAccount(Guid.NewGuid(), "michaelgipmedia", "test", false));
             Bind<IGoDaddySession>().ToConstant(mockObject.Object);
             Bind<IUserRepository>().To<UserRepository>();
             Bind<IUnitOfWork>().To<Model1>();

@@ -1,28 +1,41 @@
 ﻿using System;
+using System.ComponentModel;
 using DAS.Domain.Enum;
-using DAS.Domain.GoDaddy.Users;
 
 namespace DAS.Domain.GoDaddy.Alerts
 {
-    public class Alert : IAlert
+    public class Alert
     {
-        public Guid AlertId { get; set; }
+        public Guid AlertId { get; private set; }
 
-        public Alert()
+        public Auction Auction { get; private set; }
+
+        public string Description => Type.ToName();
+
+        public DateTime TriggerTime { get; private set; }
+
+        public bool Processed { get; private set; }
+
+        public AlertType Type { get; private set; }
+
+        public Alert(Guid alertId, AlertType type, Auction auction, DateTime triggerTime, bool processed)
         {
-            Type = AlertType.Win;
+            AlertId = alertId;
+            Type = type;
+            Auction = auction;
+            TriggerTime = triggerTime;
+            Processed = processed;
         }
+    }
 
-        public string Description
-        {
-            get { return Type.ToName(); }
-        }
 
-        public DateTime TriggerTime { get; set; }
-        public bool Processed { get; set; }
-        public Guid AuctionId { get; set; }
-        public bool Custom { get; set; }
-        public AlertType Type { get; set; }
-        public Auction Auction { get; set; }
+    public enum AlertType
+    {
+        [Description("Win Alert")]
+        Win,
+        [Description("1 Hour Alert")]
+        Reminder1Hour,
+        [Description("12 Hour Alert")]
+        Reminder12Hours
     }
 }

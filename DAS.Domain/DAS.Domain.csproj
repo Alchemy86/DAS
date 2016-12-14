@@ -46,9 +46,7 @@
     <Compile Include="Enum\EnumExten.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="GoDaddy\Alerts\Alert.cs" />
-    <Compile Include="GoDaddy\Alerts\IAlert.cs" />
     <Compile Include="GoDaddy\Auction.cs" />
-    <Compile Include="GoDaddy\SystemModel.cs" />
     <Compile Include="GoDaddy\Users\GoDaddyAccount.cs" />
     <Compile Include="GoDaddy\Users\GoDaddySession.cs" />
     <Compile Include="GoDaddy\Users\IGoDaddySession.cs" />

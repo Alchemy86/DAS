@@ -6,18 +6,7 @@ namespace DAS.DAL2
     {
         public Auction ToDomainObject()
         {
-            return new Auction
-            {
-                AccountId = AccountID,
-                AuctionId = AuctionID,
-                AuctionRef = AuctionRef,
-                DomainName = DomainName,
-                EndDate = EndDate,
-                MinBid = MinBid,
-                MyBid = MyBid,
-                Processed = Processed,
-                GoDaddyAccount = GoDaddyAccount.ToDomainObject()
-            };
+            return new Auction(AuctionID, EndDate, DomainName, AuctionRef, BidCount, MinBid, MyBid, Processed);
         }
     }
 }

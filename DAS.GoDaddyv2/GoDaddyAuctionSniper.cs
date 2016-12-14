@@ -264,16 +264,7 @@ namespace DAS.GoDaddyv2
 
             foreach (var e in search)
             {
-                results.Add(new Auction
-                {
-                    AccountId = AccountID,
-                    AuctionId = Guid.NewGuid(),
-                    AuctionRef = e.AuctionRef,
-                    DomainName = e.DomainName,
-                    EndDate = e.EndDate,
-                    MyBid = e.MyBid,
-                    MinBid = e.MinBid
-                });
+                results.Add(new Auction(Guid.NewGuid(), e.EndDate, e.DomainName, e.AuctionRef, e.BidCount, e.MinBid, e.MyBid, false));
             }
 
             return results.AsQueryable();

@@ -1,28 +1,35 @@
 ﻿using System;
-using DAS.Domain.GoDaddy.Users;
 
 namespace DAS.Domain.GoDaddy
 {
     public class Auction
     {
-        [System.ComponentModel.Browsable(false)]
-        public Guid AuctionId { get; set; }
-        public string DomainName { get; set; }
-        public string AuctionRef { get; set; }
-        public int MinBid { get; set; }
-        public DateTime EndDate { get; set; }
-        [System.ComponentModel.Browsable(false)]
-        public Guid AccountId { get; set; }
-        public int? MyBid { get; set; }
-        public bool Processed { get; set; }
-        [System.ComponentModel.Browsable(false)]
-        public int Bids { get; set; }
+        public Guid AuctionId { get; private set; }
 
-        [System.ComponentModel.Browsable(false)]
-        public string AccountUsername {
-            get { return GoDaddyAccount == null ? "" :  GoDaddyAccount.AccountUsername;  }
+        public string DomainName { get; private set; }
+
+        public string AuctionRef { get; private set; }
+
+        public int MinBid { get; private set; }
+
+        public DateTime EndDate { get; private set; }
+
+        public int? MyBid { get; private set; }
+
+        public bool Processed { get; private set; }
+
+        public int Bids { get; private set; }
+
+        public Auction(Guid id, DateTime endDate, string domainName, string auctionRef, int bids, int minBid, int? myBid, bool processed)
+        {
+            AuctionId = id;
+            EndDate = endDate;
+            DomainName = domainName;
+            AuctionRef = auctionRef;
+            Bids = bids;
+            MinBid = minBid;
+            MyBid = myBid;
+            Processed = processed;
         }
-        [System.ComponentModel.Browsable(false)]
-        public GoDaddyAccount GoDaddyAccount { get; set; }
     }
 }

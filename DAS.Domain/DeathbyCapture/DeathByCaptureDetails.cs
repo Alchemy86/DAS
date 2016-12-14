@@ -2,7 +2,14 @@
 {
     public class DeathByCaptureDetails
     {
-        public string Username;
-        public string Password;
+        public string Username { get; private set; }
+
+        public string Password { get; private set; }
+
+        public DeathByCaptureDetails(string userName, string passWord)
+        {
+            Username = userName;
+            Password = passWord;
+        }
     }
 }

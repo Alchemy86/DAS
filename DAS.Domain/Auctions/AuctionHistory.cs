@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DAS.Domain.Auctions
 {
     public class AuctionHistory
     {
-        public string Text;
-        public DateTime EventDate;
+        public string Text {  get; private set; }
+
+        public DateTime EventDate { get; private set; }
+
+        public AuctionHistory(DateTime eventDate, string text)
+        {
+            Text = text;
+            EventDate = eventDate;
+        }
     }
 }

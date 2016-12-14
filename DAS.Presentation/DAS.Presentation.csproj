@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8A951D85-A016-4DFE-BFF5-A1B1C453B81F}</ProjectGuid>
+    <ProjectGuid>{50A59BA6-A993-4609-903D-BA70D9057F7A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DAS.GoDaddyv2</RootNamespace>
-    <AssemblyName>DAS.GoDaddyv2</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>DAS.Presentation</RootNamespace>
+    <AssemblyName>DAS.Presentation</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,16 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DeathByCaptcha">
-      <HintPath>..\3rdParty\DeathByCaptcha.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,27 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="GoDaddyAuctionSniper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DAS.DAL2\DAS.DAL2.csproj">
-      <Project>{e20c8393-00a4-4b8f-a34e-8b55853d097d}</Project>
-      <Name>DAS.DAL2</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAS.Domain\DAS.Domain.csproj">
-      <Project>{E21F7956-C2BD-43CA-815E-E4967F840D69}</Project>
-      <Name>DAS.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lunchboxweb\Lunchboxweb.csproj">
-      <Project>{fcb65216-825d-4c9b-8308-ae36debfdc38}</Project>
-      <Name>Lunchboxweb</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
