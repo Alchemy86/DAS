@@ -1,27 +1,29 @@
 ﻿using System;
 using DAS.Domain;
-using DAS.Domain.Users;
 using DAS.ServiceCall.LunchboxcodeAPI;
 
 namespace DAS.ServiceCall
 {
     public class DasService : IServiceCalls
     {
-        private DomainAuctionSniperAPI Service;
-        private ISystemRepository SystemRepository;
+        private readonly DomainAuctionSniperAPI service;
+
+        private readonly ISystemRepository systemRepository;
+
         public DasService(ISystemRepository systemRepository)
         {
-            SystemRepository = systemRepository;
-            Service = new DomainAuctionSniperAPI();
+            this.systemRepository = systemRepository;
+            service = new DomainAuctionSniperAPI();
         }
-        public bool LoginWP(string username, string password)
+
+        public bool LoginWp(string username, string password)
         {
-            return Service.LoginWP(username, password) == "MATCHED";
+            return service.LoginWP(username, password) == "MATCHED";
         }
 
         public void SendEmail(string username, string message)
         {
-            Service.Email(SystemRepository.AlertEmail, "Bug Report",
+            service.Email(systemRepository.AlertEmail, "Bug Report",
                                  "Account: " + username + Environment.NewLine +
                                  "Description: " + message, "Service Manager Bug Report");
         }

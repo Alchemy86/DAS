@@ -1,10 +1,8 @@
-﻿using DAS.Domain.Users;
-
-namespace DAS.ServiceCall
+﻿namespace DAS.ServiceCall
 {
     public interface IServiceCalls
     {
-        bool LoginWP(string username, string password);
+        bool LoginWp(string username, string password);
 
         void SendEmail(string username, string message);
     }

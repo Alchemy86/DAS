@@ -8,11 +8,11 @@ namespace MVC.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IServiceCalls Service;
+        private readonly IServiceCalls service;
 
         public LoginController(IServiceCalls api)
         {
-            Service = api;
+            service = api;
         }
 
         public IActionResult Index()
@@ -46,13 +46,10 @@ namespace MVC.Controllers
         /// <returns></returns>
         private bool ServiceLogin(LoginModel model)
         {
-            if (Service.LoginWP(model.UserName, model.Password))
-            {
-                HttpContext.Session.SetString("SessionToken", Guid.NewGuid().ToString());
-                HttpContext.Session.SetString("DASUserName", model.UserName);
-                return true;
-            }
-            return false;
+            if (!service.LoginWp(model.UserName, model.Password)) return false;
+            HttpContext.Session.SetString("SessionToken", Guid.NewGuid().ToString());
+            HttpContext.Session.SetString("DASUserName", model.UserName);
+            return true;
         }
 
     }

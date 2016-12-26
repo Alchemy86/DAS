@@ -62,7 +62,6 @@
     <Compile Include="Chart_AuctionHistory.cs" />
     <Compile Include="Chart_AuctionsEnding.cs" />
     <Compile Include="Chart_PopularDomainsThisMonth.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="C__MigrationHistory.cs" />
     <Compile Include="EventLog.cs" />
     <Compile Include="Exten\Alerts.cs" />

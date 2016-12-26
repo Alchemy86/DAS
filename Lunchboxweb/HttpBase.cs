@@ -16,19 +16,16 @@ namespace Lunchboxweb
 {
     public class HttpBase : HtmlParser
     {
-        /// <summary>
-        /// Contains the session cookies
-        /// </summary>
         public CookieContainer CookieContainer { get; set; }
-        private readonly UTF8Encoding _utf8Encoding;
-        private int _timeout = 8000;
+
+        private readonly UTF8Encoding utf8Encoding;
 
         public TextManipulation TextModifier { get; private set; }
 
         public HttpBase()
         {
             CookieContainer = new CookieContainer();
-            _utf8Encoding = new UTF8Encoding();
+            utf8Encoding = new UTF8Encoding();
             TextModifier = new TextManipulation();
 
             UseFixedBrowser = false;
@@ -38,14 +35,7 @@ namespace Lunchboxweb
             UseSystemProxy = false;
         }
 
-        /// <summary>
-        /// Request timeout : default 8 seconds (ms)
-        /// </summary>
-        public int TimeoutInterval
-        {
-            get { return _timeout; }
-            set { _timeout = value; }
-        }
+        public int TimeoutInterval { get; set; } = 8000;
 
         public enum RequestType
         {
@@ -55,11 +45,6 @@ namespace Lunchboxweb
             GET
         }
 
-        /// <summary>
-        /// New html document instance
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
         public HtmlDocument HtmlDocument(string html)
         {
             var d = new HtmlDocument();
@@ -69,6 +54,7 @@ namespace Lunchboxweb
         }
 
         public WebProxy Proxy { get; set; }
+
         public string Referer { get; set; }
 
         public bool AllowAutoRedirect { get; set; }
@@ -81,21 +67,22 @@ namespace Lunchboxweb
 
         public bool UseFixedBrowser { get; set; }
 
-        private IWebProxy _webServiceProxy;
-        private bool? _webServiceProxyDiscovered;
+        private IWebProxy webServiceProxy;
+
+        private bool? webServiceProxyDiscovered;
 
         private IWebProxy DiscoverWebServiceProxy()
         {
-            if (_webServiceProxyDiscovered.HasValue) return _webServiceProxy;
+            if (webServiceProxyDiscovered.HasValue) return webServiceProxy;
             try
             {
-                _webServiceProxy = WebRequest.GetSystemWebProxy();
-                _webServiceProxyDiscovered = true;
-                if (_webServiceProxy != null)
+                webServiceProxy = WebRequest.GetSystemWebProxy();
+                webServiceProxyDiscovered = true;
+                if (webServiceProxy != null)
                 {
-                    _webServiceProxy.Credentials = CredentialCache.DefaultCredentials;
+                    webServiceProxy.Credentials = CredentialCache.DefaultCredentials;
                 }
-                return _webServiceProxy;
+                return webServiceProxy;
             }
             catch
             {
@@ -400,7 +387,7 @@ namespace Lunchboxweb
                 var response = (HttpWebResponse)request.GetResponse();
                 response.Cookies = request.CookieContainer.GetCookies(request.RequestUri);
                 // ReSharper disable once AssignNullToNotNullAttribute
-                var responseReader = new StreamReader(response.GetResponseStream(), _utf8Encoding, true);
+                var responseReader = new StreamReader(response.GetResponseStream(), utf8Encoding, true);
 
                 responseData = responseReader.ReadToEnd();
                 response.Close();

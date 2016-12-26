@@ -10,83 +10,41 @@ namespace Lunchboxweb
 {
     public abstract class HtmlParser
     {
-        /// <summary>
-        /// Url encode a string
-        /// </summary>
-        /// <param name="s">String to encode</param>
-        /// <returns>Encoded string</returns>
         public string UrlEncode(string s)
         {
             return HttpUtility.UrlEncode(s);
         }
 
-        /// <summary>
-        /// Query selector collection
-        /// </summary>
-        /// <param name="node">node to query</param>
-        /// <param name="query">query string (css selector)</param>
-        /// <returns>HtmlNode results</returns>
         protected IEnumerable<HtmlNode> QuerySelectorAll(HtmlNode node, string query)
         {
             return node.QuerySelectorAll(query);
         }
 
-        /// <summary>
-        /// Checks a node exists
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
         protected bool NodeExists(HtmlNode node)
         {
             return node != null;
         }
 
-        /// <summary>
-        /// Css selector for a single result
-        /// </summary>
-        /// <param name="node">Node to query</param>
-        /// <param name="query">Css selector query</param>
-        /// <returns>HtmlNode result</returns>
         protected HtmlNode QuerySelector(HtmlNode node, string query)
         {
             return node.QuerySelector(query);
         }
 
-        /// <summary>
-        /// Url Decode a string
-        /// </summary>
-        /// <param name="s">String to decode</param>
-        /// <returns>Decoded string</returns>
         protected string UrlDecode(string s)
         {
             return HttpUtility.UrlDecode(s);
         }
 
-        /// <summary>
-        /// Html Decode a string
-        /// </summary>
-        /// <param name="m">String to decode</param>
-        /// <returns>Decoded string</returns>
         protected string HtmlDecode(string m)
         {
             return HttpUtility.HtmlDecode(m);
         }
 
-        /// <summary>
-        /// Html Encode a string
-        /// </summary>
-        /// <param name="m">String to encode</param>
-        /// <returns>Encoded string</returns>
         protected string HtmlEncode(string m)
         {
             return HttpUtility.HtmlEncode(m);
         }
 
-        /// <summary>
-        /// Urlpath encode a string
-        /// </summary>
-        /// <param name="m">String to encode</param>
-        /// <returns>Encoded string</returns>
         protected string UrlPathEncode(string m)
         {
             return HttpUtility.UrlPathEncode(m);
@@ -102,13 +60,6 @@ namespace Lunchboxweb
             return UrlDecode(nonFriendly).Trim();
         }
 
-        /// <summary>
-        /// Get a list of substring results
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
         protected IEnumerable<string> GetSubStrings(string input, string start, string end)
         {
             var r = new Regex(Regex.Escape(start) + "(.*?)" + Regex.Escape(end));
@@ -116,13 +67,6 @@ namespace Lunchboxweb
             return from Match match in matches select match.Groups[1].Value;
         }
 
-        /// <summary>
-        /// Get a substring result
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
         protected string GetSubString(string input, string start, string end)
         {
             var r = new Regex(Regex.Escape(start) + "(.*?)" + Regex.Escape(end));
@@ -133,12 +77,6 @@ namespace Lunchboxweb
             return "";
         }
 
-        /// <summary>
-        /// Create a full url from a partial link
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="siteBaseUrl"></param>
-        /// <returns></returns>
         protected Uri CompleteUri(string url, string siteBaseUrl)
         {
             var baseUri = new Uri(siteBaseUrl, UriKind.Absolute);
@@ -147,28 +85,16 @@ namespace Lunchboxweb
             return page;
         }
 
-        /// <summary>
-        /// Turn off the option flag
-        /// </summary>
         public void TurnOffOption()
         {
             HtmlNode.ElementsFlags.Remove("option");
         }
 
-        /// <summary>
-        /// Turn of a custom flag
-        /// </summary>
-        /// <param name="op"></param>
         public void TurnOffCustom(string op)
         {
             HtmlNode.ElementsFlags.Remove(op);
         }
 
-        /// <summary>
-        /// Extract the viewstate from an aspx site
-        /// </summary>
-        /// <param name="viewstatestring"></param>
-        /// <returns></returns>
         public string ExtractViewStateSearch(string viewstatestring)
         {
             const string obj1 = "__VIEWSTATE";
@@ -187,11 +113,6 @@ namespace Lunchboxweb
             return viewstatestring;
         }
 
-        /// <summary>
-        /// Extract all email addresses from html
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
         public static List<string> ExtractEmailAddresses(string input)
         {
             const string matchEmailPattern =
@@ -206,11 +127,6 @@ namespace Lunchboxweb
             return (from Match match in matches select match.Value).ToList();
         }
 
-        /// <summary>
-        /// Extract all href links from html
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
         protected static List<string> ExtractContactPageLinks(string html)
         {
             var document = new HtmlDocument();

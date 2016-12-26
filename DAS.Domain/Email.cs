@@ -6,18 +6,18 @@ namespace DAS.Domain
 {
     public class Email : IEmail
     {
-        private readonly ISystemRepository _systemProperSystemRepository;
+        private readonly ISystemRepository systemProperSystemRepository;
         public Email(ISystemRepository repository)
         {
-            _systemProperSystemRepository = repository;
+            systemProperSystemRepository = repository;
         }
 
         private SmtpClient SmtpClient()
         {
-            var smtp = _systemProperSystemRepository.ServiceEmailSmtp;
-            var port = _systemProperSystemRepository.ServiceEmailPort;
-            var user = _systemProperSystemRepository.ServiceEmailUser;
-            var password = _systemProperSystemRepository.ServiceEmailPassword;
+            var smtp = systemProperSystemRepository.ServiceEmailSmtp;
+            var port = systemProperSystemRepository.ServiceEmailPort;
+            var user = systemProperSystemRepository.ServiceEmailUser;
+            var password = systemProperSystemRepository.ServiceEmailPassword;
 
             var client = new SmtpClient(smtp, int.Parse(port))
             {
@@ -29,24 +29,16 @@ namespace DAS.Domain
             return client;
         }
 
-        public void SendEmail(string to, string subject, string message, DateTime TimeStamp)
+        public void SendEmail(string to, string subject, string message, DateTime timeStamp)
         {
-            try
+            var email = systemProperSystemRepository.ServiceEmail;
+            var mail = new MailMessage(email, to)
             {
-                var email = _systemProperSystemRepository.ServiceEmail;
-                var mail = new MailMessage(email, to)
-                {
-                    Subject = subject,
-                    Body = message + Environment.NewLine + TimeStamp.ToString("dd/M/yyyy H:mm:ss")
-                };
+                Subject = subject,
+                Body = message + Environment.NewLine + timeStamp.ToString("dd/M/yyyy H:mm:ss")
+            };
 
-                SmtpClient().Send(mail);
-            }
-            catch (Exception ex)
-            {
-
-            }
-
+            SmtpClient().Send(mail);
         }
     }
 }

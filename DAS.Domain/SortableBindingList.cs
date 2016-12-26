@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAS.Domain
+﻿namespace DAS.Domain
 {
     using System;
     using System.Collections.Generic;
@@ -20,78 +14,66 @@ namespace DAS.Domain
         public SortableBindingList()
             : base(new List<T>())
         {
-            this.comparers = new Dictionary<Type, PropertyComparer<T>>();
+            comparers = new Dictionary<Type, PropertyComparer<T>>();
         }
 
         public SortableBindingList(IEnumerable<T> enumeration)
             : base(new List<T>(enumeration))
         {
-            this.comparers = new Dictionary<Type, PropertyComparer<T>>();
+            comparers = new Dictionary<Type, PropertyComparer<T>>();
         }
 
-        protected override bool SupportsSortingCore
-        {
-            get { return true; }
-        }
+        protected override bool SupportsSortingCore => true;
 
-        protected override bool IsSortedCore
-        {
-            get { return this.isSorted; }
-        }
+        protected override bool IsSortedCore => isSorted;
 
-        protected override PropertyDescriptor SortPropertyCore
-        {
-            get { return this.propertyDescriptor; }
-        }
+        protected override PropertyDescriptor SortPropertyCore => propertyDescriptor;
 
-        protected override ListSortDirection SortDirectionCore
-        {
-            get { return this.listSortDirection; }
-        }
+        protected override ListSortDirection SortDirectionCore => listSortDirection;
 
-        protected override bool SupportsSearchingCore
-        {
-            get { return true; }
-        }
+        protected override bool SupportsSearchingCore => true;
 
         protected override void ApplySortCore(PropertyDescriptor property, ListSortDirection direction)
         {
-            List<T> itemsList = (List<T>)this.Items;
+            List<T> itemsList = (List<T>)Items;
 
             Type propertyType = property.PropertyType;
             PropertyComparer<T> comparer;
-            if (!this.comparers.TryGetValue(propertyType, out comparer))
+            if (!comparers.TryGetValue(propertyType, out comparer))
             {
                 comparer = new PropertyComparer<T>(property, direction);
-                this.comparers.Add(propertyType, comparer);
+                comparers.Add(propertyType, comparer);
             }
 
             comparer.SetPropertyAndDirection(property, direction);
             itemsList.Sort(comparer);
 
-            this.propertyDescriptor = property;
-            this.listSortDirection = direction;
-            this.isSorted = true;
+            propertyDescriptor = property;
+            listSortDirection = direction;
+            isSorted = true;
 
-            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
+            OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
 
         protected override void RemoveSortCore()
         {
-            this.isSorted = false;
-            this.propertyDescriptor = base.SortPropertyCore;
-            this.listSortDirection = base.SortDirectionCore;
+            isSorted = false;
+            propertyDescriptor = base.SortPropertyCore;
+            listSortDirection = base.SortDirectionCore;
 
-            this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
+            OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
 
         protected override int FindCore(PropertyDescriptor property, object key)
         {
-            int count = this.Count;
-            for (int i = 0; i < count; ++i)
+            if (property == null) throw new ArgumentNullException(nameof(property));
+
+            var count = Count;
+            for (var i = 0; i < count; ++i)
             {
                 T element = this[i];
-                if (property.GetValue(element).Equals(key))
+                var value = property.GetValue(element);
+                if (value != null && value.Equals(key))
                 {
                     return i;
                 }

@@ -22,14 +22,14 @@ namespace DAS.DAL2.Repositories
             return new DeathByCaptureDetails(username, password);
         }
 
-        public GoDaddySessionModel GetSessionDetails(string username)
+        public GoDaddySession GetSessionDetails(string username)
         {
             var details = Context.Users.Include("GoDaddyAccount").FirstOrDefault(x => x.Username == username);
             if (details == null) return null;
             var gdAccount = details.GoDaddyAccount.FirstOrDefault() != null
                 ? details.GoDaddyAccount.First().ToDomainObject()
                 : null;
-            return new GoDaddySessionModel(details.Username, details.Password, gdAccount, GetDeathByCaptureDetailsDetails());
+            return new GoDaddySession(details.Username, details.Password, gdAccount, GetDeathByCaptureDetailsDetails());
         }
 
         /// <summary>
