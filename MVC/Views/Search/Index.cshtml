@@ -1,3 +1,94 @@
-﻿@{
+﻿@model SearchModel
+@{
     ViewData["Title"] = "Search";
 }
+<script src="~/lib/jquery.countdown/dist/jquery.countdown.min.js"></script>
+<script src="~/lib/momentjs/min/moment.min.js"></script>
+<script src="~/lib/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+
+<script>
+</script>
+<form asp-controller="Search" asp-action="Search" method="post" class="form-group" role="form">
+    <div class="col-xs-4">
+        <input asp-for="SearchText" class="form-control" placeholder="Search" id="searchtext">
+    </div>
+    <div class="col-xs-2">
+        <select asp-for="SearchLimit" class="form-control" id="ex4">
+            <option value="10" selected>10</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+        </select>
+    </div>
+    <label class="pull-left">Max Records</label>
+    <div class="col-xs-2">
+        <button id="submitSearch" type="submit" class="btn btn-info">Submit</button>
+    </div>
+</form>
+
+<div class="container">
+    <div>
+        <h3 class="text-center">Search Results@(Model.SearchText == "" ? "" : ": " + Model.SearchText)</h3>
+    </div>
+
+    <table id="myTable" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Domain</th>
+            <th>Ref</th>
+            <th>Traffic</th>
+            <th>Minimuim Bid</th>
+            <th>Estimated End Date</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><a target="_blank" href="https://auctions.godaddy.com/trpItemListing.aspx?miid=@item.AuctionRef"><div style="height:100%;width:100%"><strong>@item.DomainName <span class="glyphicon glyphicon-chevron-right pull-right"></span></strong></div></a></td>
+                <td><strong>@item.AuctionRef</strong></td>
+                <td><span class="badge"><strong>@item.Traffic</strong></span></td>
+                <td><span class="badge"><strong>@item.MinBid</strong></span></td>
+                <td><strong>@item.EstimateEndDate</strong></td>
+                <td><span data-countdown="@(item.EstimateEndDate?.ToString("yyyy-MM-dd HH:mm:ss") ?? "2000-01-01")"></span></td>
+                <td class="btn btn-info" data-toggle="tooltip" data-placement="right" title="Set max bid option for @item.DomainName" style="cursor: pointer" onclick="">Set Bid</td>
+            </tr>
+            
+        }
+
+        </tbody>
+        <tfoot style="border: none">
+        <tr title="Show all employees">
+            <td class="active"><strong>Total Results:</strong></td>
+            <td><span class="badge alert-info">@Model.Count()</span></td>
+        </tr>
+        </tfoot>
+    </table>
+    <script type="text/javascript">
+        $('[data-countdown]').each(function () {
+            var $this = $(this), finalDate = moment.tz($(this).data('countdown'), "PST8PDT").toDate();
+            $this.countdown(finalDate, function (event) {
+                if (event.strftime('%D') > 0) {
+                    $this.html(event.strftime('%D days %H:%M:%S'));
+                } else if (event.strftime('%H') > 0) {
+                    $this.html(event.strftime('%H Hours %M Min %S Sec'));
+                } else if (event.strftime('%M') > 0) {
+                    $this.html(event.strftime('%M Min %S Sec'));
+                } else if (event.strftime('%S') > 0) {
+                    $this.html(event.strftime('%S Sec'));
+                }
+                
+            }).on('update.countdown', function (event) {
+                if (event.elapsed) {
+                    $this.html('Ended');
+                }
+            });;
+        });
+        $(document).ready(function () {
+            $("#searchtext").val("");
+        });
+    </script>
+</div>

@@ -1,4 +1,5 @@
 using System;
+using DAS.Domain.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Attributes;
@@ -6,7 +7,7 @@ using MVC.Attributes;
 namespace MVC.Controllers
 {
     [ValidationService]
-    public class BaseController : Controller
+    public class BaseController : SessionController
     {
         public IActionResult FAQ()
         {
@@ -22,16 +23,12 @@ namespace MVC.Controllers
             return View("~/Views/Login/Index.cshtml");
         }
 
-        public Guid CascadeSessionToken
+        public IActionResult Logout()
         {
-            get
-            {
-                return HttpContext.Session.GetString("SessionToken") == null ? Guid.Empty : new Guid(HttpContext.Session.GetString("SessionToken"));
-            }
-            set
-            {
-                HttpContext.Session.SetString("SessionToken", value.ToString());
-            }
+            HttpContext.Session.Clear();
+            ViewBag.Message = "You have been logged out";
+            ViewBag.Signout = "";
+            return View("~/Views/Login/Index.cshtml");
         }
     }
 }

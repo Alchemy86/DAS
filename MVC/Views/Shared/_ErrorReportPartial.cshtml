@@ -1,0 +1,43 @@
+﻿@model ErrorReport
+
+<form asp-controller="BugReport" asp-action="SubmitBug" method="post" class="form-horizontal" role="form" id="bugform">
+    <div class="modal fade" id="bugreport" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Report a bug <span class="glyphicon glyphicon-send pull-right"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="sr-only">Description</label>
+                        <textarea asp-for="Message" class="form-control" rows="10" Columns="120" placeholder="Report your issue" maxlength="500" required autofocus id="bugtxtv"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default" id="closebug" data-dismiss="modal">Close</a>
+                    <div class="btn btn-primary" onclick="Submit($('#bugtxtv').val())">Submit</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+        $('#bugform').valid();
+        function Submit(message) {
+            if ($('#bugform').valid()) {
+                $('#bugreport').modal('toggle');
+                $.ajax({
+                    dataType: "html",
+                    type: "POST",
+                    url: '@Url.Action("SubmitBug", "BugReport")',
+                    data: { message: message },
+                    success: function (a) {
+                        // close the modal and submit the but report
+                        $('#feedbackmessage').text(a);
+                        $('#feedbackmessage').fadeIn(300).delay(2000).fadeOut('slow');
+                    }
+                });
+            }
+        }
+</script>

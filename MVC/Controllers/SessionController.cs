@@ -1,30 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DAS.Domain.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MVC.Controllers
 {
     public class SessionController : Controller
     {
-        private readonly IUserRepository UserRepository;
-        public SessionController(IUserRepository userRepository)
-        {
-            UserRepository = userRepository;
-        }
+        protected string Username => HttpContext.Session.GetString("DASUserName") ?? string.Empty;
 
-        protected string Username
+        public Guid SessionToken
         {
             get
             {
-                return HttpContext.Session.GetString("DASUserName") ?? string.Empty;
+                return HttpContext.Session.GetString("SessionToken") == null ? Guid.Empty : new Guid(HttpContext.Session.GetString("SessionToken"));
+            }
+            set
+            {
+                HttpContext.Session.SetString("SessionToken", value.ToString());
             }
         }
-
     }
 }

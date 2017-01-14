@@ -6,7 +6,7 @@ namespace DAS.DAL2
     {
         public Auction ToDomainObject()
         {
-            return new Auction(AuctionID, EndDate, DomainName, AuctionRef, BidCount, MinBid, MyBid, Processed);
+            return new Auction(AuctionID, EndDate, EstimateEndDate, DomainName, AuctionRef, BidCount, MinBid, MyBid, Processed, Traffic);
         }
     }
 }

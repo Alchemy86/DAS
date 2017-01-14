@@ -14,22 +14,33 @@ namespace DAS.Domain.GoDaddy
 
         public DateTime EndDate { get; private set; }
 
+        public DateTime? EstimateEndDate { get; private set; }
+
         public int? MyBid { get; private set; }
 
         public bool Processed { get; private set; }
 
         public int Bids { get; private set; }
 
-        public Auction(Guid id, DateTime endDate, string domainName, string auctionRef, int bids, int minBid, int? myBid, bool processed)
+        public int Traffic { get; private set; }
+
+        public Auction(Guid id, DateTime endDate, DateTime? estimatedEndDate, string domainName, string auctionRef, int bids, int minBid, int? myBid, bool processed, int traffic)
         {
             AuctionId = id;
             EndDate = endDate;
+            EstimateEndDate = estimatedEndDate;
             DomainName = domainName;
             AuctionRef = auctionRef;
             Bids = bids;
             MinBid = minBid;
             MyBid = myBid;
             Processed = processed;
+            Traffic = traffic;
+        }
+
+        public Auction()
+        {
+            
         }
     }
 }

@@ -36,6 +36,7 @@ namespace MVC.Controllers
             if (!service.LoginWp(model.UserName, model.Password)) return false;
             HttpContext.Session.SetString("SessionToken", Guid.NewGuid().ToString());
             HttpContext.Session.SetString("DASUserName", model.UserName);
+            ViewBag.Signout = "Signout";
             return true;
         }
     }

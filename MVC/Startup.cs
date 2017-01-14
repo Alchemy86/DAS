@@ -5,6 +5,7 @@ using DAS.Domain.Users;
 using DAS.ServiceCall;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,10 +14,11 @@ namespace MVC
 {
     public class Startup
     {
-        private IServiceCalls DasApi;
-        private IUserRepository UserRepository;
-        private IUnitOfWork UnitOfWork;
-        private ISystemRepository SystemRepository;
+        private readonly IServiceCalls dasApi;
+        private readonly IUserRepository userRepository;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly ISystemRepository systemRepository;
+        private readonly IEmail emailService;
 
         public Startup(IHostingEnvironment env)
         {
@@ -26,11 +28,12 @@ namespace MVC
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            UnitOfWork = new Model1();
-            SystemRepository = new SystemRepository(UnitOfWork);
-            DasApi = new DasService(SystemRepository);
-            UserRepository = new UserRepository(UnitOfWork);
+            unitOfWork = new Model1();
+            systemRepository = new SystemRepository(unitOfWork);
+            dasApi = new DasService(systemRepository);
+            userRepository = new UserRepository(unitOfWork);
             Configuration = builder.Build();
+            emailService = new Email(systemRepository);
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -40,12 +43,21 @@ namespace MVC
         {
             // Add framework services.
             services.AddSession();
-            services.AddMvc();
-            services.AddSingleton(UnitOfWork);
-            services.AddSingleton(SystemRepository);
-            services.AddSingleton(UserRepository);
-            services.AddSingleton(DasApi);
-
+            services.AddMvc().AddRazorOptions(options =>
+            {
+                //Correct issue with ref object outside the current namespace - VS bug.
+                var previous = options.CompilationCallback;
+                options.CompilationCallback = context =>
+                {
+                    previous?.Invoke(context);
+                    context.Compilation = context.Compilation.AddReferences(MetadataReference.CreateFromFile(typeof(DAS.Domain.GoDaddy.Auction).Assembly.Location));
+                };
+            });
+            services.AddSingleton(unitOfWork);
+            services.AddSingleton(systemRepository);
+            services.AddSingleton(userRepository);
+            services.AddSingleton(dasApi);
+            services.AddSingleton(emailService);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
