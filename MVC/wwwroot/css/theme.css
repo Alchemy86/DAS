@@ -1362,10 +1362,6 @@ a.text-danger:hover,
 a.text-danger:focus {
   color: #e6e6e6;
 }
-.bg-primary {
-  color: #fff;
-  background-color: #7a8288;
-}
 a.bg-primary:hover,
 a.bg-primary:focus {
   background-color: #62686d;
@@ -3100,22 +3096,6 @@ fieldset[disabled] .btn-default.focus {
 .btn-default .badge {
   color: #3a3f44;
   background-color: #ffffff;
-}
-.btn-primary {
-  color: #ffffff;
-  background-color: #7a8288;
-  border-color: #7a8288;
-}
-.btn-primary:focus,
-.btn-primary.focus {
-  color: #ffffff;
-  background-color: #62686d;
-  border-color: #3e4245;
-}
-.btn-primary:hover {
-  color: #ffffff;
-  background-color: #62686d;
-  border-color: #5d6368;
 }
 .btn-primary:active,
 .btn-primary.active,
@@ -6767,11 +6747,6 @@ button.close {
   margin-left: 5px;
   margin-right: 5px;
 }
-.btn,
-.btn:hover {
-  border-color: rgba(0, 0, 0, 0.6);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-}
 .btn-default {
   background-image: -webkit-linear-gradient(#484e55, #3a3f44 60%, #313539);
   background-image: -o-linear-gradient(#484e55, #3a3f44 60%, #313539);
@@ -6786,22 +6761,6 @@ button.close {
   background-image: linear-gradient(#020202, #101112 40%, #191b1d);
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff020202', endColorstr='#ff191b1d', GradientType=0);
-  filter: none;
-}
-.btn-primary {
-  background-image: -webkit-linear-gradient(#8a9196, #7a8288 60%, #70787d);
-  background-image: -o-linear-gradient(#8a9196, #7a8288 60%, #70787d);
-  background-image: linear-gradient(#8a9196, #7a8288 60%, #70787d);
-  background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff8a9196', endColorstr='#ff70787d', GradientType=0);
-  filter: none;
-}
-.btn-primary:hover {
-  background-image: -webkit-linear-gradient(#404448, #4e5458 40%, #585e62);
-  background-image: -o-linear-gradient(#404448, #4e5458 40%, #585e62);
-  background-image: linear-gradient(#404448, #4e5458 40%, #585e62);
-  background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff404448', endColorstr='#ff585e62', GradientType=0);
   filter: none;
 }
 .btn-success {

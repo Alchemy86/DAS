@@ -5,20 +5,13 @@ namespace DAS.DAL2.Repositories
 {
     public class BaseRepository
     {
-        private readonly Model1 _context;
-        protected Model1 Context
-        {
-            get
-            {
-                return _context;
-            }
-        }
+        protected Model1 Context { get; }
 
         public BaseRepository(IUnitOfWork context)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
-            _context = context as Model1;
+                throw new ArgumentNullException(nameof(context));
+            Context = context as Model1;
         }
     }
 }

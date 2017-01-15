@@ -1,3 +1,128 @@
-﻿@{
+﻿@model MyBidsModel
+@{
     ViewData["Title"] = "My Bids";
 }
+<div id="mod2">
+</div>
+<ul class="nav nav-tabs pull-right" id="tabs" data-tabs="tabs">
+    <li><a href="#historic" data-toggle="tab">Historic</a></li>
+    <li class="active"><a data-toggle="tab" href="#current">Current <span class="badge alert-info">@Model.Auctions.Count()</span></a></li>
+</ul>
+<div id="my-tab-content" class="tab-content">
+    <div class="tab-pane active" id="current">
+        <table id="myTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Domain</th>
+                <th>Ref</th>
+                <th>Minimum Bid</th>
+                <th>End Date</th>
+                <th>Count Down</th>
+                <th>My Bid</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach (var item in Model.Auctions)
+            {
+                <tr>
+                    <td><a target="_blank" href="https://auctions.godaddy.com/trpItemListing.aspx?miid=@item.AuctionRef"><div style="height:100%;width:100%"><strong>@item.DomainName <span class="glyphicon glyphicon-chevron-right pull-right"></span></strong></div></a></td>
+                    <td><strong>@item.AuctionRef</strong></td>
+                    <td><span class="badge"><strong>@item.MinBid.ToString("F2")</strong></span></td>
+                    <td><strong>@item.EndDate</strong></td>
+                    <td><span data-countdown="@(item.EndDate.ToString("yyyy-MM-dd HH:mm:ss"))"></span></td>
+                    <td><span class="badge"><strong>@item.MyBid?.ToString("F2")</strong></span></td>
+                    <td class="btn btn-sm btn-primary" data-toggle="modal" href="#bidmodal" data-placement="right" title="@item.DomainName History" style="cursor: pointer" onclick="GetAuctionHistory('@item.AuctionId')">History</td>
+                </tr>
+
+            }
+
+            </tbody>
+            <tfoot style="border: none">
+            <tr title="Show all employees">
+                <td colspan="6" class="active"><strong>Total Results:</strong></td>
+                <td class="text-center"><span class="badge alert-info">@Model.Auctions.Count()</span></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="tab-pane" id="historic">
+        <table id="historcTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Domain</th>
+                <th>Ref</th>
+                <th>Minimum Bid</th>
+                <th>End Date</th>
+                <th>Count Down</th>
+                <th>My Bid</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach (var item in Model.HistoricAuctions)
+            {
+                <tr>
+                    <td><a target="_blank" href="https://auctions.godaddy.com/trpItemListing.aspx?miid=@item.AuctionRef"><div style="height:100%;width:100%"><strong>@item.DomainName <span class="glyphicon glyphicon-chevron-right pull-right"></span></strong></div></a></td>
+                    <td><strong>@item.AuctionRef</strong></td>
+                    <td><span class="badge"><strong>@item.MinBid.ToString("F2")</strong></span></td>
+                    <td><strong>@item.EndDate</strong></td>
+                    <td><strong>Ended</strong></td>
+                    <td><span class="badge"><strong>@item.MyBid?.ToString("F2")</strong></span></td>
+                    <td class="btn btn-sm btn-primary" data-placement="right" title="Set max bid option for @item.DomainName" style="cursor: pointer" onclick="GetAuctionHistory('@item.AuctionId')">History</td>
+                </tr>
+            }
+
+            </tbody>
+            <tfoot style="border: none">
+            <tr>
+                <td colspan="6" class="active"><strong>Total Results:</strong></td>
+                <td class="text-center" ><span class="badge alert-info">@Model.HistoricAuctions.Count()</span></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="modal fade" id="historyModal" role="dialog">
+        <div class="modal-dialog modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Auction History<span class="glyphicon glyphicon-info-sign pull-right"></span></h4>
+                    <h5 class="text-muted" id="hdnDomainName"></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="sr-only">Description</label>
+                        <div id="mod1">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default pull-right" id="closebug" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("_CountDownPartial")
+<script>
+    function GetAuctionHistory(auctionGuid) {
+        $('#mod1').html("Loading...");
+        $('#historyModal').modal('toggle');
+        $.ajax({
+            dataType: "html",
+            type: "POST",
+            url: '@Url.Action("GetAuctionHistory", "Bids")',
+            data: { auctionId: auctionGuid },
+            success: function (data) {
+                $('#mod1').html(data);
+                $('#mod1').fadeIn(400).delay(2000);
+            }
+        });
+    }
+
+    $("#mod1").fadeOut(200).fadeIn(200);
+</script>

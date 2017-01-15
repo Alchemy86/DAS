@@ -1,6 +1,4 @@
 using System;
-using DAS.Domain.Users;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Attributes;
 
@@ -29,6 +27,17 @@ namespace MVC.Controllers
             ViewBag.Message = "You have been logged out";
             ViewBag.Signout = "";
             return View("~/Views/Login/Index.cshtml");
+        }
+
+        protected DateTime GetPacificTime
+        {
+            get
+            {
+                var tzi = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                var localDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tzi);
+
+                return localDateTime;
+            }
         }
     }
 }

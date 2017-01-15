@@ -31,7 +31,7 @@ namespace DAS.Domain.GoDaddy.Alerts
 
     public enum AlertType
     {
-        [Description("Win Alert")]
+        [Description("WIN ALERT")]
         Win,
         [Description("1 Hour Alert")]
         Reminder1Hour,

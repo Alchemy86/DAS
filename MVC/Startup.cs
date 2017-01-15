@@ -1,6 +1,7 @@
 ﻿using DAS.DAL2;
 using DAS.DAL2.Repositories;
 using DAS.Domain;
+using DAS.Domain.GoDaddy;
 using DAS.Domain.Users;
 using DAS.ServiceCall;
 using Microsoft.AspNetCore.Builder;
@@ -19,6 +20,7 @@ namespace MVC
         private readonly IUnitOfWork unitOfWork;
         private readonly ISystemRepository systemRepository;
         private readonly IEmail emailService;
+        private readonly IAuctionRepository auctionRepository;
 
         public Startup(IHostingEnvironment env)
         {
@@ -34,6 +36,7 @@ namespace MVC
             userRepository = new UserRepository(unitOfWork);
             Configuration = builder.Build();
             emailService = new Email(systemRepository);
+            auctionRepository = new AuctionRepository(unitOfWork);
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -58,6 +61,7 @@ namespace MVC
             services.AddSingleton(userRepository);
             services.AddSingleton(dasApi);
             services.AddSingleton(emailService);
+            services.AddSingleton(auctionRepository);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

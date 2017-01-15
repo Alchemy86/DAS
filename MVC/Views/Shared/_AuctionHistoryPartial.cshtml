@@ -1,0 +1,17 @@
+﻿@model IEnumerable<DAS.Domain.Auctions.AuctionHistory>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Created</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    @foreach (var moo in Model)
+    {
+        <tr>
+            <td>@moo.EventDate</td>
+            <td>@moo.Text</td>
+        </tr>
+    }
+</table>

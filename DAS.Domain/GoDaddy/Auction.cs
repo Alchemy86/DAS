@@ -24,6 +24,8 @@ namespace DAS.Domain.GoDaddy
 
         public int Traffic { get; private set; }
 
+        public Guid AccountId { get; private set; }
+
         public Auction(Guid id, DateTime endDate, DateTime? estimatedEndDate, string domainName, string auctionRef, int bids, int minBid, int? myBid, bool processed, int traffic)
         {
             AuctionId = id;
@@ -36,6 +38,12 @@ namespace DAS.Domain.GoDaddy
             MyBid = myBid;
             Processed = processed;
             Traffic = traffic;
+        }
+
+        public Auction SetAccountLink(Guid accountId)
+        {
+            AccountId = accountId;
+            return this;
         }
 
         public Auction()

@@ -28,7 +28,13 @@ namespace MVC.Controllers
             }
 
             ViewBag.Message = "Login Failed. Please check your details";
-            return View(ServiceLogin(model) ? "~/Views/Bids/Index.cshtml" : "~/Views/Login/Index.cshtml");
+
+            if (!ServiceLogin(model))
+            {
+                return View("~/Views/Login/Index.cshtml");
+            }
+
+            return RedirectToAction("Index", "Bids");
         }
 
         private bool ServiceLogin(LoginModel model)

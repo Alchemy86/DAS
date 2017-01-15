@@ -124,7 +124,7 @@ namespace DAS.GoDaddyv2
 
         private AuctionSearch GenerateAuctionSearch()
         {
-            var p = new AuctionSearch();
+            var p = new AuctionSearch { AuctionID = Guid.NewGuid() };
             return p;
         }
 

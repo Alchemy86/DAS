@@ -47,6 +47,7 @@
     <Compile Include="Global.cs" />
     <Compile Include="GoDaddy\Alerts\Alert.cs" />
     <Compile Include="GoDaddy\Auction.cs" />
+    <Compile Include="GoDaddy\IAuctionRepository.cs" />
     <Compile Include="GoDaddy\Users\GoDaddyAccount.cs" />
     <Compile Include="GoDaddy\Users\GoDaddySession.cs" />
     <Compile Include="GoDaddy\Users\IGoDaddySession.cs" />
