@@ -31,8 +31,8 @@ namespace MVC.Controllers
         {
             var accountId = userRepository.GetSessionDetails(Username).GoDaddyAccount.AccountId;
             var records = auctionRepository.GetUsersAuctions(accountId).ToList();
-            var historicRecords = records.Where(x => x.EndDate < GetPacificTime);
-            var currentRecords = records.Where(x => x.EndDate >= GetPacificTime);
+            var historicRecords = records.Where(x => x.EndDate < GetPacificTime).OrderByDescending(x => x.EndDate);
+            var currentRecords = records.Where(x => x.EndDate >= GetPacificTime).OrderBy(x => x.EndDate); ;
             var model = new MyBidsModel(currentRecords, historicRecords);
 
             return View(model);
