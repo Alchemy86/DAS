@@ -53,7 +53,7 @@ namespace MVC
                 options.CompilationCallback = context =>
                 {
                     previous?.Invoke(context);
-                    context.Compilation = context.Compilation.AddReferences(MetadataReference.CreateFromFile(typeof(DAS.Domain.GoDaddy.Auction).Assembly.Location));
+                    context.Compilation = context.Compilation.AddReferences(MetadataReference.CreateFromFile(typeof(Auction).Assembly.Location));
                 };
             });
             services.AddSingleton(unitOfWork);

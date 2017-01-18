@@ -2,8 +2,6 @@
 @{
     ViewData["Title"] = "My Bids";
 }
-<div id="mod2">
-</div>
 <ul class="nav nav-tabs pull-right" id="tabs" data-tabs="tabs">
     <li><a href="#historic" data-toggle="tab">Historic <span class="badge alert-info">@Model.HistoricAuctions.Count()</span></a></li>
     <li class="active"><a data-toggle="tab" href="#current">Current <span class="badge alert-info">@Model.Auctions.Count()</span></a></li>
@@ -32,10 +30,18 @@
                     <td><span class="badge"><strong>@item.MinBid.ToString("F2")</strong></span></td>
                     <td><strong>@item.EndDate</strong></td>
                     <td><span data-countdown="@(item.EndDate.ToString("yyyy-MM-dd HH:mm:ss"))"></span></td>
-                    <td><span class="badge"><strong>@item.MyBid?.ToString("F2")</strong></span></td>
-                    <td class="btn btn-sm btn-primary" data-toggle="modal" href="#bidmodal" data-placement="right" title="@item.DomainName History" style="cursor: pointer" onclick="GetAuctionHistory('@item.AuctionId')">History</td>
+                    <td style="cursor: pointer" title="Edit Value" onclick="ShowEditMode('@item.AuctionId')"><span class="badge"><strong class="">@item.MyBid?.ToString("F2")</strong></span></td>
+                    <td class="@item.AuctionId editMode" style="display: none">
+                        <input id="@item.AuctionId" type="number" value="@item.MyBid"/>
+                    </td>
+                    <td>
+                        <div class="@item.AuctionId editMode" style="display: none">
+                            <button class="btn btn-sm btn-warning" data-toggle="modal" href="#bidmodal" data-placement="right" style="cursor: pointer" onclick="UpdateAuctionValue('@item.AuctionId')">Update</button>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" href="#bidmodal" data-placement="right" style="cursor: pointer" onclick="ShowViewMode('@item.AuctionId')">Cancel</button>
+                        </div>
+                        <button class="@item.AuctionId btn btn-sm btn-primary viewMode" data-toggle="modal" href="#bidmodal" data-placement="right" title="@item.DomainName History" style="cursor: pointer" onclick="GetAuctionHistory('@item.AuctionId')">History</button>
+                    </td>
                 </tr>
-
             }
 
             </tbody>
@@ -72,7 +78,7 @@
                     <td><strong>@item.EndDate</strong></td>
                     <td><strong>Ended</strong></td>
                     <td><span class="badge"><strong>@item.MyBid?.ToString("F2")</strong></span></td>
-                    <td class="btn btn-sm btn-primary" data-placement="right" title="Set max bid option for @item.DomainName" style="cursor: pointer" onclick="GetAuctionHistory('@item.AuctionId')">History</td>
+                    <td class="btn btn-sm btn-primary" data-placement="right" style="cursor: pointer" onclick="GetAuctionHistory('@item.AuctionId')">History</td>
                 </tr>
             }
 
@@ -124,5 +130,33 @@
         });
     }
 
-    $("#mod1").fadeOut(200).fadeIn(200);
+    function UpdateAuctionValue(auctionGuid) {
+        var newValue = $('#' + auctionGuid).val();
+        $.ajax({
+            dataType: "html",
+            type: "POST",
+            url: '@Url.Action("UpdateAuctionValue", "Bids")',
+            data: { auctionId: auctionGuid, newValue: newValue },
+            success: function (a) {
+                $('#feedbackmessage').text(a);
+                $('#feedbackmessage').fadeIn(300).delay(2000).fadeOut('slow');
+                ShowViewMode(auctionGuid);
+            }
+        });
+    }
+    $(document).ready(function () {
+
+    });
+
+    function ShowEditMode(auctionId) {
+        $('[class*="viewMode"]').filter('[class*="' + auctionId + '"]').hide();
+        $('[class*="editMode"]').filter('[class*="' + auctionId + '"]').show();
+        $('#' + auctionId).focus();
+    }
+
+    function ShowViewMode(auctionId) {
+        $('[class*="viewMode"]').filter('[class*="' + auctionId + '"]').show();
+        $('[class*="editMode"]').filter('[class*="' + auctionId + '"]').hide();
+    }
+
 </script>

@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using DAS.Domain;
-using DAS.Domain.Auctions;
 using DAS.Domain.GoDaddy;
 using DAS.Domain.Users;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +31,7 @@ namespace MVC.Controllers
             var records = auctionRepository.GetUsersAuctions(accountId).ToList();
             var historicRecords = records.Where(x => x.EndDate < GetPacificTime).OrderByDescending(x => x.EndDate);
             var currentRecords = records.Where(x => x.EndDate >= GetPacificTime).OrderBy(x => x.EndDate); ;
-            var model = new MyBidsModel(currentRecords, historicRecords);
+            var model = new MyBidsModel(currentRecords, historicRecords, PageMode.View);
 
             return View(model);
         }
@@ -43,6 +41,13 @@ namespace MVC.Controllers
         {
             var guid = Guid.Parse(auctionId);
             return PartialView("~/Views/Shared/_AuctionHistoryPartial.cshtml", auctionRepository.GetAuctionHistory(guid));
+        }
+
+        [HttpPost]
+        public string UpdateAuctionValue(string auctionId, int newValue)
+        {
+
+            return "Bid Updated";
         }
     }
 }
