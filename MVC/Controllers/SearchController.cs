@@ -29,8 +29,8 @@ namespace MVC.Controllers
 
         public IActionResult Index()
         {
-            var model = new SearchModel(new List<Auction>(), "", 50);
-            return View(model);
+            var resultsModel = new SearchModel(new List<Auction>(), "", 50);
+            return View("~/Views/Search/Index.cshtml", resultsModel);
         }
 
         [HttpPost]
@@ -41,7 +41,6 @@ namespace MVC.Controllers
             var results = gdService.Search(model.SearchText).Take(model.SearchLimit).ToList();
             var accountId = userRepository.GetSessionDetails(Username).GoDaddyAccount.AccountId;
             auctionRepository.RemoveExisting(accountId);
-            unitOfWork.Save();
             auctionRepository.SaveAuctionSearch(results, accountId);
             unitOfWork.Save();
 

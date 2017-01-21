@@ -2,6 +2,7 @@
 using DAS.DAL2.Repositories;
 using DAS.Domain;
 using DAS.Domain.GoDaddy;
+using DAS.Domain.GoDaddy.Users;
 using DAS.Domain.Users;
 using DAS.ServiceCall;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,7 @@ namespace MVC
             Configuration = builder.Build();
             emailService = new Email(systemRepository);
             auctionRepository = new AuctionRepository(unitOfWork);
+
         }
 
         public IConfigurationRoot Configuration { get; }

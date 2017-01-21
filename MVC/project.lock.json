@@ -12,6 +12,15 @@
           "lib/net35/BeginCollectionItem.dll": {}
         }
       },
+      "DevZH.HtmlAgilityPack/1.4.9.4": {
+        "type": "package",
+        "compile": {
+          "lib/net451/DevZH.HtmlAgilityPack.dll": {}
+        },
+        "runtime": {
+          "lib/net451/DevZH.HtmlAgilityPack.dll": {}
+        }
+      },
       "EntityFramework/6.1.3": {
         "type": "package",
         "frameworkAssemblies": [
@@ -24,15 +33,6 @@
         "runtime": {
           "lib/net45/EntityFramework.SqlServer.dll": {},
           "lib/net45/EntityFramework.dll": {}
-        }
-      },
-      "HtmlAgilityPack/1.4.9": {
-        "type": "package",
-        "compile": {
-          "lib/Net45/HtmlAgilityPack.dll": {}
-        },
-        "runtime": {
-          "lib/Net45/HtmlAgilityPack.dll": {}
         }
       },
       "Ix-Async/1.2.5": {
@@ -2078,6 +2078,37 @@
           "lib/net45/Remotion.Linq.dll": {}
         }
       },
+      "RSA.Fizzler/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.Serialization.Primitives": "4.1.1"
+        },
+        "frameworkAssemblies": [
+          "System.Xml"
+        ],
+        "compile": {
+          "lib/net451/RSA.Fizzler.dll": {}
+        },
+        "runtime": {
+          "lib/net451/RSA.Fizzler.dll": {}
+        }
+      },
+      "RSA.Fizzler.Systems.HtmlAgilityPack/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "DevZH.HtmlAgilityPack": "1.4.9.4",
+          "RSA.Fizzler": "1.0.0"
+        },
+        "frameworkAssemblies": [
+          "System.Xml"
+        ],
+        "compile": {
+          "lib/net451/RSA.Fizzler.Systems.HtmlAgilityPack.dll": {}
+        },
+        "runtime": {
+          "lib/net451/RSA.Fizzler.Systems.HtmlAgilityPack.dll": {}
+        }
+      },
       "runtime.native.System/4.0.0-rc2-24027": {
         "type": "package"
       },
@@ -2454,7 +2485,7 @@
           "lib/net45/_._": {}
         }
       },
-      "System.Runtime.Serialization.Primitives/4.1.1-rc2-24027": {
+      "System.Runtime.Serialization.Primitives/4.1.1": {
         "type": "package",
         "frameworkAssemblies": [
           "System.Runtime.Serialization",
@@ -2770,6 +2801,19 @@
         "lib/net35/BeginCollectionItem.dll"
       ]
     },
+    "DevZH.HtmlAgilityPack/1.4.9.4": {
+      "sha512": "8nhmmQ4pUUkp8WESgcbME2inN9/Xfn1T7dWCH60wJsr2BuzJiWdRh60//fRFAIyljUJtOpljAQ8AwviUv87Jfw==",
+      "type": "package",
+      "files": [
+        "DevZH.HtmlAgilityPack.1.4.9.4.nupkg.sha512",
+        "DevZH.HtmlAgilityPack.nuspec",
+        "lib/net20/DevZH.HtmlAgilityPack.dll",
+        "lib/net40/DevZH.HtmlAgilityPack.dll",
+        "lib/net451/DevZH.HtmlAgilityPack.dll",
+        "lib/netstandard1.3/DevZH.HtmlAgilityPack.dll",
+        "lib/netstandard1.5/DevZH.HtmlAgilityPack.dll"
+      ]
+    },
     "EntityFramework/6.1.3": {
       "sha512": "2xzFHAF3VVdmTR3//MygtQpwfbDjeaq+nQwCcokLzen7MKHOojPaxNPQPa4diHY1QtcR7zlHAJHNRqPB7W2Syw==",
       "type": "package",
@@ -2794,43 +2838,6 @@
         "tools/init.ps1",
         "tools/install.ps1",
         "tools/migrate.exe"
-      ]
-    },
-    "HtmlAgilityPack/1.4.9": {
-      "sha512": "anZIsi7bbHZ35ZZzvCA+gVWC/mEXVhcJjJvxr3wzUEDsOE4uk0Fa0ZiaxVn83AZpVKVO4RHyqamPkzzJbMUgmQ==",
-      "type": "package",
-      "files": [
-        "HAPIcon.png",
-        "HtmlAgilityPack.1.4.9.nupkg.sha512",
-        "HtmlAgilityPack.nuspec",
-        "lib/Net20/HtmlAgilityPack.dll",
-        "lib/Net20/HtmlAgilityPack.pdb",
-        "lib/Net20/HtmlAgilityPack.xml",
-        "lib/Net40-client/HtmlAgilityPack.dll",
-        "lib/Net40-client/HtmlAgilityPack.pdb",
-        "lib/Net40-client/HtmlAgilityPack.xml",
-        "lib/Net40/HtmlAgilityPack.XML",
-        "lib/Net40/HtmlAgilityPack.dll",
-        "lib/Net40/HtmlAgilityPack.pdb",
-        "lib/Net45/HtmlAgilityPack.XML",
-        "lib/Net45/HtmlAgilityPack.dll",
-        "lib/Net45/HtmlAgilityPack.pdb",
-        "lib/NetCore45/HtmlAgilityPack.dll",
-        "lib/NetCore45/HtmlAgilityPack.pdb",
-        "lib/NetCore45/HtmlAgilityPack.pri",
-        "lib/NetCore45/HtmlAgilityPack.xml",
-        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.dll",
-        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.pdb",
-        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.dll",
-        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.pdb",
-        "lib/sl3-wp/_._",
-        "lib/sl4/HtmlAgilityPack.XML",
-        "lib/sl4/HtmlAgilityPack.dll",
-        "lib/sl4/HtmlAgilityPack.pdb",
-        "lib/sl5/HtmlAgilityPack.XML",
-        "lib/sl5/HtmlAgilityPack.dll",
-        "lib/sl5/HtmlAgilityPack.pdb",
-        "readme.txt"
       ]
     },
     "Ix-Async/1.2.5": {
@@ -4939,6 +4946,34 @@
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.xml"
       ]
     },
+    "RSA.Fizzler/1.0.0": {
+      "sha512": "MI3mASUA+QeXPq6gBX3+nhF1mt/kr4CsUjoegIaeBsji7b8/+prxcQTP5lQiGW5UwEAqFqIdaay4eG7FvbduKA==",
+      "type": "package",
+      "files": [
+        "RSA.Fizzler.1.0.0.nupkg.sha512",
+        "RSA.Fizzler.nuspec",
+        "lib/net20/RSA.Fizzler.dll",
+        "lib/net40/RSA.Fizzler.dll",
+        "lib/net451/RSA.Fizzler.dll",
+        "lib/netstandard1.3/RSA.Fizzler.dll",
+        "lib/netstandard1.5/RSA.Fizzler.dll",
+        "lib/netstandard1.6/RSA.Fizzler.dll"
+      ]
+    },
+    "RSA.Fizzler.Systems.HtmlAgilityPack/1.0.0": {
+      "sha512": "Uj84pWKzjXRb9eNB3NpC1fwEGiSH7iY8WRx8NqVGqrpl3a1TqTdia8DzGR3QQ0c2rKmxZFitApGKTqSx3jEMUg==",
+      "type": "package",
+      "files": [
+        "RSA.Fizzler.Systems.HtmlAgilityPack.1.0.0.nupkg.sha512",
+        "RSA.Fizzler.Systems.HtmlAgilityPack.nuspec",
+        "lib/net20/RSA.Fizzler.Systems.HtmlAgilityPack.dll",
+        "lib/net40/RSA.Fizzler.Systems.HtmlAgilityPack.dll",
+        "lib/net451/RSA.Fizzler.Systems.HtmlAgilityPack.dll",
+        "lib/netstandard1.3/RSA.Fizzler.Systems.HtmlAgilityPack.dll",
+        "lib/netstandard1.5/RSA.Fizzler.Systems.HtmlAgilityPack.dll",
+        "lib/netstandard1.6/RSA.Fizzler.Systems.HtmlAgilityPack.dll"
+      ]
+    },
     "runtime.native.System/4.0.0-rc2-24027": {
       "sha512": "bC0GLcJTry9N+ra9qb+zYSQHnBpy4ZMVJXRRSuu7aD/cQoZPQtySql110ec9REOKsE6tf2ZoolczpCOmzwKW8g==",
       "type": "package",
@@ -6713,11 +6748,11 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "System.Runtime.Serialization.Primitives/4.1.1-rc2-24027": {
-      "sha512": "CatEVkKtMZlBrsdboi2RNediIXkYaiKtseORboHASI96mYtlPvivmHr/nw+pKx7s7enaFvs5Ovfbc8uXs5Qt7Q==",
+    "System.Runtime.Serialization.Primitives/4.1.1": {
+      "sha512": "HZ6Du5QrTG8MNJbf4e4qMO3JRAkIboGT5Fk804uZtg3Gq516S7hAqTm2UZKUHa7/6HUGdVy3AqMQKbns06G/cg==",
       "type": "package",
       "files": [
-        "System.Runtime.Serialization.Primitives.4.1.1-rc2-24027.nupkg.sha512",
+        "System.Runtime.Serialization.Primitives.4.1.1.nupkg.sha512",
         "System.Runtime.Serialization.Primitives.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -7609,7 +7644,6 @@
     "": [
       "BeginCollectionItem >= 1.2.1",
       "EntityFramework >= 6.1.3",
-      "HtmlAgilityPack >= 1.4.9",
       "Microsoft.ApplicationInsights.AspNetCore >= 1.0.0-rc2-final",
       "Microsoft.AspNet.Mvc >= 5.2.3",
       "Microsoft.AspNetCore.Authentication.Cookies >= 1.0.0-rc2-final",
@@ -7638,6 +7672,8 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Tools >= 1.0.0-preview1-final",
       "Microsoft.VisualStudio.Web.CodeGenerators.Mvc >= 1.0.0-preview1-final",
       "Newtonsoft.Json >= 9.0.1",
+      "RSA.Fizzler >= 1.0.0",
+      "RSA.Fizzler.Systems.HtmlAgilityPack >= 1.0.0",
       "jQueryDatatablesMVC >= 1.7.1",
       "jquery.datatables >= 1.10.12"
     ],
