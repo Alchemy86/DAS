@@ -30,10 +30,19 @@ namespace MVC.Controllers
             var accountId = userRepository.GetSessionDetails(Username).GoDaddyAccount.AccountId;
             var records = auctionRepository.GetUsersAuctions(accountId).ToList();
             var historicRecords = records.Where(x => x.EndDate < GetPacificTime).OrderByDescending(x => x.EndDate);
-            var currentRecords = records.Where(x => x.EndDate >= GetPacificTime).OrderBy(x => x.EndDate); ;
+            var currentRecords = records.Where(x => x.EndDate >= GetPacificTime).OrderBy(x => x.EndDate);
             var model = new MyBidsModel(currentRecords, historicRecords, PageMode.View);
 
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Guid auctionId)
+        {
+            var accountId = userRepository.GetSessionDetails(Username).GoDaddyAccount.AccountId;
+            auctionRepository.DeleteAuction(auctionId, accountId);
+            unitOfWork.Save();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -46,7 +55,9 @@ namespace MVC.Controllers
         [HttpPost]
         public string UpdateAuctionValue(string auctionId, int newValue)
         {
-
+            var guid = Guid.Parse(auctionId);
+            auctionRepository.UpdateAuctionBid(guid, newValue, GetPacificTime);
+            unitOfWork.Save();
             return "Bid Updated";
         }
     }

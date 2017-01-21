@@ -90,6 +90,10 @@ namespace MVC
                     name: "default",
                     template: "{controller=Login}/{action=Index}/{id?}");
 
+                routes.MapRoute(
+                    name: "defaul2t",
+                    template: "{controller=Login}");
+
                 // Add this code to handle non-existing urls
                 routes.MapRoute(
                     "404-PageNotFound",

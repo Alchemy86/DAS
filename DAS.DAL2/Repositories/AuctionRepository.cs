@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Globalization;
 using System.Linq;
 using DAS.Domain;
 using DAS.Domain.Enum;
@@ -50,6 +51,15 @@ namespace DAS.DAL2.Repositories
             return auctions;
         }
 
+        public void DeleteAuction(Guid auctionId, Guid accountId)
+        {
+            var record = Context.Auctions.FirstOrDefault(x => x.AuctionID == auctionId && x.AccountID == accountId);
+            if (record != null)
+            {
+                Context.Auctions.Remove(record);
+            }
+        }
+
         public void SaveAuctionSearch(IEnumerable<Auction> auctions, Guid accountId)
         {
             var enumerable = auctions as IList<Auction> ?? auctions.ToList();
@@ -76,8 +86,33 @@ namespace DAS.DAL2.Repositories
 
         public void RemoveExisting(Guid accountId)
         {
-            Context.AuctionSearch.RemoveRange(Context.AuctionSearch.Where(x => x.AccountID == accountId));
+            var records = Context.AuctionSearch.Where(x => x.AccountID == accountId).ToList();
+            if (records.Any())
+            {
+                Context.AuctionSearch.RemoveRange(records);
+            }
         }
+
+        public void UpdateAuctionBid(Guid auctionGuid, int bid, DateTime pacificTime)
+        {
+            var existingrecord = Context.Auctions.FirstOrDefault(x => x.AuctionID == auctionGuid);
+            if (existingrecord == null)
+                return;
+
+            existingrecord.MyBid = bid;
+
+            var item = new AuctionHistory
+            {
+                HistoryID = Guid.NewGuid(),
+                Text = "Auction Max Bid Updated to: " + bid.ToString("C2", CultureInfo.CreateSpecificCulture("en-US")),
+                CreatedDate = pacificTime,
+                AuctionLink = existingrecord.AuctionID
+            };
+            Context.AuctionHistory.Add(item);
+
+            Context.Auctions.AddOrUpdate(existingrecord);
+        }
+
 
         public void SaveAuction(Auction auction, DateTime pacificTime)
         {

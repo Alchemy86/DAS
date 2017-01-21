@@ -1,4 +1,6 @@
 using System;
+using DAS.Domain;
+using DAS.Domain.Users;
 using DAS.ServiceCall;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +12,23 @@ namespace MVC.Controllers
     {
         private readonly IServiceCalls service;
 
-        public LoginController(IServiceCalls api)
+        private readonly IUserRepository userRepository;
+
+        private readonly ISystemRepository systemRepository;
+
+        private readonly IUnitOfWork unitOfWork;
+
+        public LoginController(IServiceCalls api, IUserRepository userRepository, ISystemRepository systemRepository, IUnitOfWork unitOfWork)
         {
+            if (api == null) throw new ArgumentNullException(nameof(api));
+            if (userRepository == null) throw new ArgumentNullException(nameof(userRepository));
+            if (systemRepository == null) throw new ArgumentNullException(nameof(systemRepository));
+            if (unitOfWork == null) throw new ArgumentNullException(nameof(unitOfWork));
+
             service = api;
+            this.userRepository = userRepository;
+            this.systemRepository = systemRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
@@ -42,6 +58,27 @@ namespace MVC.Controllers
             if (!service.LoginWp(model.UserName, model.Password)) return false;
             HttpContext.Session.SetString("SessionToken", Guid.NewGuid().ToString());
             HttpContext.Session.SetString("DASUserName", model.UserName);
+
+            var userAccount = userRepository.GetUserAccount(model.UserName);
+            if (userAccount == null)
+            {
+                userAccount = new User
+                {
+                    AccountID = Guid.NewGuid(),
+                    Username = model.UserName,
+                    Password = model.Password,
+                    ReceiveEmails = false,
+                    AccessLevel = 1,
+                    UseAccountForSearch = false
+                };
+                systemRepository.SaveAccount(userAccount);
+                unitOfWork.Save();
+            }
+
+            var account = userRepository.GetSessionDetails(model.UserName).GoDaddyAccount;
+            HttpContext.Session.SetString("AccountVerified", account == null ? string.Empty : "Verified");
+
+            HttpContext.Session.SetObjectAsJson("UserAccount", userAccount);
             ViewBag.Signout = "Signout";
             return true;
         }

@@ -4,6 +4,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using DAS.Domain;
 using DAS.Domain.GoDaddy;
+using DAS.Domain.Users;
 
 namespace DAS.DAL2.Repositories
 {
@@ -39,17 +40,14 @@ namespace DAS.DAL2.Repositories
             get { return Context.SystemConfig.First(x => x.PropertyID == "ServiceEmailUser").Value; }
         }
 
-
         public string AlertEmail
         {
             get { return Context.SystemConfig.First(x => x.PropertyID == "AlertEmail").Value; }
         }
 
-
         public IEnumerable<Auction> GetEndingAuctions()
         {
             var tomorrow = Global.GetPacificTime.AddDays(3);
-            var now = Global.GetPacificTime;
             //var auctions = Context.Auctions.Include("GoDaddyAccount").Where(x => x.Processed == false && x.EndDate <= tomorrow);
             //var moo = Context.Auctions.Where(x => x.Processed == false && x.EndDate <= tomorrow).ToList();
             var results = (from e in Context.Auctions.Include("GoDaddyAccount")
@@ -82,7 +80,7 @@ namespace DAS.DAL2.Repositories
         }
 
 
-        public IEnumerable<DAS.Domain.GoDaddy.Alerts.Alert> GetAlerts()
+        public IEnumerable<Domain.GoDaddy.Alerts.Alert> GetAlerts()
         {
              return (from e in Context.Alerts.Include("Auction")
                            select e).Where(x => x.Processed == false)
@@ -90,16 +88,30 @@ namespace DAS.DAL2.Repositories
                         .Select(x => x.ToDomainObject());
         }
 
-
-        public void SaveGodaddyAccount(DAS.Domain.GoDaddy.Users.GoDaddyAccount account)
+        public void SaveGodaddyAccount(Domain.GoDaddy.Users.GoDaddyAccount account, Guid userAccount)
         {
-            throw new NotImplementedException();
+            var existingRecord = Context.GoDaddyAccount.FirstOrDefault(x => x.UserID == userAccount) ??
+                                 new GoDaddyAccount { UserID = userAccount, AccountID = Guid.NewGuid() };
+
+            existingRecord.GoDaddyUsername = account.Username;
+            existingRecord.GoDaddyPassword = account.Password;
+            existingRecord.Verified = account.Verified;
+
+            Context.GoDaddyAccount.AddOrUpdate(existingRecord);
         }
 
-
-        public DAS.Domain.Users.User SaveAccount(DAS.Domain.Users.User account)
+        public void SaveAccount(User account)
         {
-            throw new NotImplementedException();
+            var existingRecord = Context.Users.FirstOrDefault(x => x.Username == account.Username) ??
+                                 new Users { UserID = account.AccountID, Username = account.Username, Password = account.Password };
+
+            existingRecord.Username = account.Username;
+            existingRecord.Password = account.Password;
+            existingRecord.AccessLevel = account.AccessLevel;
+            existingRecord.ReceiveEmails = account.ReceiveEmails;
+            existingRecord.UseAccountForSearch = account.UseAccountForSearch;
+
+            Context.Users.AddOrUpdate(existingRecord);
         }
     }
 }

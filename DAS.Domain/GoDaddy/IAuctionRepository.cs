@@ -13,8 +13,12 @@ namespace DAS.Domain.GoDaddy
 
         IEnumerable<Auction> GetUsersAuctions(Guid accountId);
 
-        IEnumerable<Domain.Auctions.AuctionHistory> GetAuctionHistory(Guid auctionGuid);
+        void UpdateAuctionBid(Guid auctionGuid, int bid, DateTime pacificTime);
+
+        IEnumerable<Auctions.AuctionHistory> GetAuctionHistory(Guid auctionGuid);
 
         void RemoveExisting(Guid accountId);
+
+        void DeleteAuction(Guid auctionId, Guid accountId);
     }
 }

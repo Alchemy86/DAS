@@ -1,6 +1,123 @@
-﻿@{
+﻿@model SettingsModel
+@{
     ViewData["Title"] = "Settings";
 }
 <div>
     <h4 class="text-muted">Manage your preferences here</h4>
+    <h2>
+        <span style="display: none" class="label label-success center-block" id="response">@ViewBag.Response</span>
+        <span style="display: none" class="label label-warning center-block" id="responsefail">@ViewBag.ResponseFail</span>
+    </h2>
 </div>
+
+<div class="container">
+    <div class="vertical-center">
+
+        <div class="container text-center">
+            <br />
+            <div>
+                <small class="text-warning">@ViewBag.Warning</small>
+            </div>
+
+            <small class="text-muted">@ViewBag.Message</small>
+            <br />
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+
+                <div class="col-md-6" style="padding-left: 60px; padding-right: 60px">
+                    <!-- <div asp-validation-summary="All" class="text-danger"></div> -->
+                    <form asp-controller="Settings" asp-action="VerifyAccount" method="post" class="form-horizontal" role="form">
+                        <fieldset class="form-group">
+                            <label asp-for="Username" class="label pull-left">Godaddy Username</label>
+                            <input asp-for="Username" class="form-control" placeholder="Enter Username (Email)">
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label asp-for="Password" class="label pull-left">Godaddy Password</label>
+                            <input asp-for="Password" class="form-control" placeholder="Password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </fieldset>
+                        <fieldset class="form-group pull-right">
+                            <input type="submit" class="btn btn-success" value="Save / Verify" />
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div class="col-md-3">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    
+                </div>
+                <div class="col-md-8">
+                    <label>Receive Emails</label>
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="EmailAlerts" type="checkbox" class="text-muted" onchange="UpdateEmailSetting(this.checked)"> Get email alerts including warnings and auctions nearing their end
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-8">
+                    <label>Use Account for Searching</label>
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="UseAccountInSearch" type="checkbox" class="text-muted" onchange="UpdateSearchSetting(this.checked)"> Use your account for domain searchs(I.e. Enabled adult listed sites etc)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        if ($("#response").text()) {
+            $("#response").fadeIn(400).delay(2000).fadeOut('slow');
+        }
+        if ($("#responsefail").text()) {
+            $("#responsefail").fadeIn(400).delay(2000).fadeOut('slow');
+        }
+    });
+
+    function UpdateEmailSetting(receiveEmails) {
+        $.ajax({
+            dataType: "html",
+            type: "POST",
+            url: '@Url.Action("UpdateEmailSetting", "Settings")',
+            data: { receiveEmails: receiveEmails },
+            success: function () {
+                $('#feedbackmessage').text("Change Applied");
+                $('#feedbackmessage').fadeIn(400).delay(2000).fadeOut('slow');
+            }
+        });
+    }
+
+    function UpdateSearchSetting(useAccount) {
+        $.ajax({
+            dataType: "html",
+            type: "POST",
+            url: '@Url.Action("UpdateSearchSetting", "Settings")',
+            data: { useAccount: useAccount },
+            success: function () {
+                $('#feedbackmessage').text("Change Applied");
+                $('#feedbackmessage').fadeIn(400).delay(2000).fadeOut('slow');
+            }
+        });
+    }
+</script>

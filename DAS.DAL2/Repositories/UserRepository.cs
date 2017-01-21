@@ -32,6 +32,20 @@ namespace DAS.DAL2.Repositories
             return new GoDaddySession(details.Username, details.Password, gdAccount, GetDeathByCaptureDetailsDetails());
         }
 
+        public User GetUserAccount(string userName)
+        {
+            var account = Context.Users.FirstOrDefault(x => x.Username == userName);
+            return account == null ? null : new User
+            {
+                AccountID = account.UserID,
+                Username = account.Username,
+                Password = account.Password,
+                AccessLevel = account.AccessLevel,
+                UseAccountForSearch = account.UseAccountForSearch,
+                ReceiveEmails = account.ReceiveEmails
+            };
+        }
+
         /// <summary>
         /// Add an error to the database
         /// </summary>

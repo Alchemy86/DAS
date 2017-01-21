@@ -5,34 +5,25 @@ using DAS.Domain.GoDaddy;
 
 namespace MVC.Models.Pages
 {
-    public class SearchModel : IEnumerable<Auction>
+    public class SearchModel
     {
-        private readonly IEnumerable<Auction> items;
+        public IEnumerable<Auction> Items;
 
         public string SearchText { get; set; }
 
         public int SearchLimit { get; set; }
 
-        public IEnumerator<Auction> GetEnumerator()
-        {
-            return items.Skip(0).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
 
         public SearchModel(IEnumerable<Auction> items, string searchText, int searchLimit)
         {
-            this.items = items;
+            this.Items = items;
             SearchText = searchText;
             SearchLimit = searchLimit;
         }
 
         public SearchModel()
         {
-            items = Enumerable.Empty<Auction>();
+            Items = Enumerable.Empty<Auction>();
         }
     }
 }

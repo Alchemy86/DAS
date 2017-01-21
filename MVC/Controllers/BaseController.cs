@@ -1,4 +1,6 @@
 using System;
+using DAS.DAL2.Repositories;
+using DAS.Domain.Users;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Attributes;
 
@@ -16,9 +18,15 @@ namespace MVC.Controllers
         {
             return View("~/Views/Admin/Index.cshtml");
         }
+
         public IActionResult Login()
         {
             return View("~/Views/Login/Index.cshtml");
+        }
+
+        public IActionResult Settings()
+        {
+            return View("~/Views/Settings/Index.cshtml");
         }
 
         public IActionResult Logout()

@@ -44,7 +44,8 @@
     "Microsoft.AspNet.Mvc": "5.2.3",
     "HtmlAgilityPack": "1.4.9",
     "jquery.datatables": "1.10.12",
-    "jQueryDatatablesMVC": "1.7.1"
+    "jQueryDatatablesMVC": "1.7.1",
+    "Microsoft.Net.Http.Server": "1.0.0-rc1-final"
   },
 
   "tools": {

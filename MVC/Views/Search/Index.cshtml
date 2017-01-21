@@ -40,7 +40,7 @@
         </thead>
         <tbody>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Items)
         {
             <tr>
                 <td><a target="_blank" href="https://auctions.godaddy.com/trpItemListing.aspx?miid=@item.AuctionRef"><div style="height:100%;width:100%"><strong>@item.DomainName <span class="glyphicon glyphicon-chevron-right pull-right"></span></strong></div></a></td>
@@ -58,7 +58,7 @@
         <tfoot style="border: none">
         <tr title="Show all employees">
             <td colspan="6" class="active"><strong>Total Results:</strong></td>
-            <td class="text-center"><span class="badge alert-info">@Model.Count()</span></td>
+            <td class="text-center"><span class="badge alert-info">@Model.Items.Count()</span></td>
         </tr>
         </tfoot>
     </table>
