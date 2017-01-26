@@ -113,6 +113,23 @@ namespace DAS.DAL2.Repositories
             Context.Auctions.AddOrUpdate(existingrecord);
         }
 
+        public void AddHistoryRecord(Guid auctionGuid, string message, DateTime pacificTime)
+        {
+            var existingrecord = Context.Auctions.FirstOrDefault(x => x.AuctionID == auctionGuid);
+            if (existingrecord == null)
+                return;
+
+            var item = new AuctionHistory
+            {
+                HistoryID = Guid.NewGuid(),
+                Text = message,
+                CreatedDate = pacificTime,
+                AuctionLink = existingrecord.AuctionID
+            };
+
+            Context.AuctionHistory.Add(item);
+        }
+
 
         public void SaveAuction(Auction auction, DateTime pacificTime)
         {

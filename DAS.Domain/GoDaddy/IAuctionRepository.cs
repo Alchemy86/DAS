@@ -20,5 +20,7 @@ namespace DAS.Domain.GoDaddy
         void RemoveExisting(Guid accountId);
 
         void DeleteAuction(Guid auctionId, Guid accountId);
+
+        void AddHistoryRecord(Guid auctionGuid, string message, DateTime pacificTime);
     }
 }

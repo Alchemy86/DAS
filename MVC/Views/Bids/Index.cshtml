@@ -86,7 +86,10 @@
                     <td><strong>@item.EndDate</strong></td>
                     <td><strong>Ended</strong></td>
                     <td><span class="badge"><strong>@item.MyBid?.ToString("F2")</strong></span></td>
-                    <td class="btn btn-sm btn-primary" data-placement="right" style="cursor: pointer" onclick="GetAuctionHistory('@item.AuctionId')">History</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-success" href="#bidmodal" data-toggle="modal" data-placement="right" style="cursor: pointer" onclick="WinCheck('@item.AuctionId', '@item.DomainName');">Win Check</button>
+                        <button type="button" class="btn btn-sm btn-primary" href="#bidmodal" data-toggle="modal" data-placement="right" style="cursor: pointer" onclick="GetAuctionHistory('@item.AuctionId')">History</button>
+                    </td>
                 </tr>
             }
 
@@ -153,6 +156,23 @@
             }
         });
     }
+
+    function WinCheck(auctionGuid, domainName) {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        $('#feedbackmessage').text("Checking, please wait..");
+        $('#feedbackmessage').fadeIn(300).delay(4000);
+        $.ajax({
+            dataType: "html",
+            type: "POST",
+            url: '@Url.Action("PerformWinCheck", "Bids")',
+            data: { auctionId: auctionGuid, domainName: domainName },
+            success: function (a) {
+                $('#feedbackmessage').fadeOut('slow');
+                GetAuctionHistory(auctionGuid);
+            }
+        });
+    }
+
     $(document).ready(function () {
         Sortable('#historic');
     });
@@ -197,7 +217,7 @@
             });
     }
 
-    
+
 
     function ShowEditMode(auctionId) {
         $('[class*="viewMode"]').filter('[class*="' + auctionId + '"]').hide();
@@ -215,6 +235,6 @@
         if (charCode > 31 && (charCode < 48 || charCode > 57))
             return false;
         return true;
-    }  
+    }
 
 </script>

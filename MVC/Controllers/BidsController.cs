@@ -3,6 +3,7 @@ using System.Linq;
 using DAS.Domain;
 using DAS.Domain.GoDaddy;
 using DAS.Domain.Users;
+using DAS.GoDaddyv2;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models.Pages;
 
@@ -59,6 +60,21 @@ namespace MVC.Controllers
             auctionRepository.UpdateAuctionBid(guid, newValue, GetPacificTime);
             unitOfWork.Save();
             return "Bid Updated";
+        }
+
+        [HttpPost]
+        public void PerformWinCheck(string auctionId, string domainName)
+        {
+            var guid = Guid.Parse(auctionId);
+            var gdService = new GoDaddyAuctionSniper(Username, userRepository);
+            var won = gdService.WinCheck(domainName);
+
+            auctionRepository.AddHistoryRecord(guid,
+                won
+                    ? "Auction Check: With confidence, you have won before you have started"
+                    : "Auction Check: No reward is offered, for they are gone forever", GetPacificTime);
+
+            unitOfWork.Save();
         }
     }
 }
